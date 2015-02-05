@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroductionToOpenGL", "IntroductionToOpenGL\IntroductionToOpenGL.vcxproj", "{EB6E85E2-5D89-4772-8D1D-9DC6800EBA16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroductionToOpenGL", "IntroductionToOpenGL.vcxproj", "{EB6E85E2-5D89-4772-8D1D-9DC6800EBA16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
