@@ -1,16 +1,20 @@
 #include "SolarSystemTest.h"
+#include "CameraAndProjection.h"
 
 int main()
 {
-	SolarSystemTest* SolarSystemGame = new SolarSystemTest();
-	if (SolarSystemGame->Create(1280.0f, 720.0f, "Computer Graphics - Ex Nihilo") == true)
+	CameraAndProjection app;
+	if (app.StartUp() == false)
 	{
-		while (SolarSystemGame->Update() == true)
-		{
-			SolarSystemGame->Draw();
-		}
-		SolarSystemGame->ShutDown();
+		return -1;
 	}
-	delete SolarSystemGame;
+
+	while (app.Update() == true)
+	{
+		app.Draw();
+	}
+	
+	app.ShutDown();
+
 	return 0;
 }

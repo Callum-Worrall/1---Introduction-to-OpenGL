@@ -1,8 +1,10 @@
+//#ifndef Application
+//#define Application
+
 #pragma once
 
 #include "gl_core_4_4.h"
 #include <GLFW/glfw3.h>
-//#include "../deps/glfw/include/GLFW/glfw3.h"
 
 #include <cstdio>
 
@@ -23,11 +25,10 @@ class Application
 {
 public:
 	Application();
-	~Application();
-
-	//virtual bool Create(float screen_width, float screen_height, const char* window_title);
+	virtual ~Application();
 
 	virtual bool StartUp();
+
 	virtual bool ShutDown();
 
 	virtual bool Update();
@@ -35,7 +36,11 @@ public:
 
 protected:
 
-	GLFWwindow* window;
+	GLFWwindow* m_window;
+
+	int m_window_width;
+	int m_window_height;
+
+	float m_timer;
 
 };
-

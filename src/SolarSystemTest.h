@@ -7,8 +7,6 @@ public:
 	SolarSystemTest();
 	~SolarSystemTest();
 
-	bool Create(float screen_width, float screen_height, const char* window_title);
-
 	virtual bool StartUp();
 	virtual bool ShutDown();
 
@@ -19,13 +17,11 @@ public:
 
 private:
 
-	float camera_x;
-	float camera_z;
+	float m_camera_x;
+	float m_camera_z;
 
-	float timer;
-
-	mat4 view;
-	mat4 projection;
+	mat4 m_view;
+	mat4 m_projection;
 
 	vec4 white;
 	vec4 black;

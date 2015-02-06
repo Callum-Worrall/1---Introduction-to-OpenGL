@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Applications">
+      <UniqueIdentifier>{d65b0414-e843-4873-ac90-eec398b9a6bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{09fb1ff1-2be7-4e0b-995c-c932d507ecd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -24,11 +30,20 @@
     <ClCompile Include="src\Gizmos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SolarSystemTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SolarSystemTest.cpp">
+      <Filter>Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraAndProjection.cpp">
+      <Filter>Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FlyCamera.cpp">
+      <Filter>Cameras</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,10 +54,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Application.h">
-      <Filter>Header Files</Filter>
+      <Filter>Applications</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraAndProjection.h">
+      <Filter>Applications</Filter>
     </ClInclude>
     <ClInclude Include="src\SolarSystemTest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Applications</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FlyCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
