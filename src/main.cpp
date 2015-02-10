@@ -3,7 +3,7 @@
 
 int main()
 {
-	CameraAndProjection app;
+	SolarSystemTest app;
 	if (app.StartUp() == false)
 	{
 		return -1;

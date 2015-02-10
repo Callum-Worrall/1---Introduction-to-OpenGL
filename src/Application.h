@@ -1,5 +1,5 @@
-//#ifndef Application
-//#define Application
+#ifndef _APPLICATION_H_
+#define _APPLICATION_H_
 
 #pragma once
 
@@ -44,3 +44,5 @@ protected:
 	float m_timer;
 
 };
+
+#endif

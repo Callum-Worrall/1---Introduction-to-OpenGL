@@ -1,6 +1,8 @@
 #include "Application.h"
+#include "FlyCamera.h"
 
 #pragma once
+
 class SolarSystemTest : public Application
 {
 public:
@@ -16,6 +18,8 @@ public:
 	mat4 BuildOrbitMatrix(float local_rotation, float radius, float orbit_rotation);
 
 private:
+
+	FlyCamera* m_camera;
 
 	float m_camera_x;
 	float m_camera_z;

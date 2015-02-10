@@ -26,15 +26,23 @@ bool SolarSystemTest::StartUp()
 	//Start up Gizmos
 	Gizmos::create();
 
-	//camera - position, rotation, up
-	m_view = glm::lookAt(vec3(10, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
+	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f);
 
+	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
+	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
+	m_camera->SetSpeed(3);
+
+	////camera - position, rotation, up
+	//m_view = glm::lookAt(vec3(10, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
+	//
 	//glm::perspective - Sets Field of m_view (Field of m_view Y, Aspect Ratio, Near, Far)
-	m_projection = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
+	//m_projection = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
+	//
+	////Camera Co-Ordinates
+	//m_camera_x = -10.0f;
+	//m_camera_z = -10.0f;
 
-	//Camera Co-Ordinates
-	m_camera_x = -10.0f;
-	m_camera_z = -10.0f;
+
 
 	//Set m_timer to Zero
 	m_timer = 0.0f;
@@ -52,6 +60,8 @@ bool SolarSystemTest::StartUp()
 
 bool SolarSystemTest::ShutDown()
 {
+	delete m_camera;
+
 	//Good practice for memory efficiency
 	Gizmos::destroy();
 
@@ -69,20 +79,23 @@ bool SolarSystemTest::Update()
 	}
 
 	//dynamically cast time as a float and get
-	float dt = (float)glfwGetTime();
+	float DeltaTime = (float)glfwGetTime();
 
 	//reset time to 0
 	glfwSetTime(0.0f);
 
-	m_timer += dt;
+	m_timer += DeltaTime;
+
+	//Camera Update
+	m_camera->Update(DeltaTime);
 
 	////create circular rotation for camera
 	//m_camera_x = sinf(m_timer) * 10;
 	//m_camera_z = cosf(m_timer) * 10;
 
 
-	//Set Camera Position, Rotation (Yaw, Pitch) , Something
-	mat4 m_view = glm::lookAt(vec3(m_camera_x, 10, m_camera_z), vec3(0, 0, 0), vec3(0, 1, 0));
+	////Set Camera Position, Rotation (Yaw, Pitch) , Something
+	//mat4 m_view = glm::lookAt(vec3(m_camera_x, 10, m_camera_z), vec3(0, 0, 0), vec3(0, 1, 0));
 
 
 	//	Put Base Code Here	//
@@ -158,8 +171,10 @@ bool SolarSystemTest::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	Gizmos::draw(m_camera->GetProjectionView());
+
 	//Draws Transform Axis
-	Gizmos::draw(m_projection, m_view);
+	//Gizmos::draw(m_projection, m_view);
 
 	////Draw Grid 20 x 20
 	//for (int i = 0; i <= 20; i++)
