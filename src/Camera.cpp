@@ -20,11 +20,14 @@ bool Camera::Update()
 void Camera::SetPerspective(float a_fieldOfView, float a_aspectRatio, float a_near, float a_far)
 {
 	projectionTransform = glm::perspective(a_fieldOfView, a_aspectRatio, a_near, a_far);
+	UpdateProjectionViewTransform();
 }
 
 void Camera::SetLookAt(vec3 a_from, vec3 a_to, vec3 a_up)
 {
 	viewTransform = glm::lookAt(a_from, a_to, a_up);
+	worldTransform = glm::inverse(viewTransform);
+	UpdateProjectionViewTransform();
 }
 
 void Camera::SetPosition(vec3 a_position)

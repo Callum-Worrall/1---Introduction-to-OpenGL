@@ -1,9 +1,10 @@
 #include "SolarSystemTest.h"
 #include "CameraAndProjection.h"
+#include "RenderingGeometry.h"
 
 int main()
 {
-	SolarSystemTest app;
+	RenderingGeometry app;
 	if (app.StartUp() == false)
 	{
 		return -1;
