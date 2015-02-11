@@ -1,5 +1,6 @@
 #include "RenderingGeometry.h"
 #include "Vertex.h"
+#include "Utility.h"
 
 
 RenderingGeometry::RenderingGeometry()
@@ -171,8 +172,7 @@ void RenderingGeometry::GenerateGrid(unsigned int rows, unsigned int cols)
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(vec4));
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		m_index_count, index_array, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_index_count * sizeof(unsigned int), index_array, GL_STATIC_DRAW);
 
 	//Unbind 
 	glBindVertexArray(0);
@@ -190,7 +190,7 @@ void RenderingGeometry::GenerateShader()
 //Create Shaders
 
 	//Vertex Shader
-	const char* vs_source =	"#version 410\n \
+	char* vs_source =	"#version 410\n \
 							layout(location=0) in vec4 position;\n \
 							layout(location=1) in vec4 color;\n \
 							out vec4 out_color;\n \
@@ -204,7 +204,7 @@ void RenderingGeometry::GenerateShader()
 							} \n";
 	
 	//Fragment Shader
-	const char* fs_source =	"#version 410 \n \
+	char* fs_source =	"#version 410 \n \
 							in vec4 out_color; \n \
 							out vec4 frag_color; \n \
 							void main() \n \
@@ -212,7 +212,13 @@ void RenderingGeometry::GenerateShader()
 							frag_color = out_color; \n \
 							} \n";
 
-	unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+	if (Utility::LoadShader(vs_source, fs_source, 0) == true)
+	{
+
+	}
+
+
+	/*unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	
 	glShaderSource(vertex_shader, 1, &vs_source, 0);
@@ -240,5 +246,5 @@ void RenderingGeometry::GenerateShader()
 			printf("Error: Failed to link shader program!\n");
 			printf("%s\n", infoLog);
 			delete[] infoLog;
-		}
+		}*/
 }

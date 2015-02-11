@@ -10,7 +10,7 @@ class Utility
 {
 public:
 
-	bool LoadShader(char* vertex_filename, char* fragment_filename, GLuint* result);
+	static bool LoadShader(char* vertex_filename, char* fragment_filename, GLuint* result);
 
 };
 
