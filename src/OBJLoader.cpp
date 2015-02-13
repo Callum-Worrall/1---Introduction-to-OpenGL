@@ -1,7 +1,6 @@
 #include "OBJLoader.h"
 #include "Utility.h"
 
-//Inverse
 
 bool OBJLoader::StartUp()
 {
@@ -12,7 +11,6 @@ bool OBJLoader::StartUp()
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-
 
 
 	//le code//

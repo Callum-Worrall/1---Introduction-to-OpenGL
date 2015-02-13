@@ -2,7 +2,7 @@
 #include "Utility.h"
 
 
-bool AppTemplate::StartUp()
+bool AppTemplate::StartUp() // START UP //
 {
 	if (Application::StartUp() == false)
 	{
@@ -14,31 +14,38 @@ bool AppTemplate::StartUp()
 
 
 
-	//le code//
+	//Insert Custom Code Here//
 
-	Utility::LoadShader("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl",
-		&m_program_ID);
+	//Load Shaders
+	Utility::LoadShader("./shaders/lighting_vertex.glsl",
+						"./shaders/lighting_fragment.glsl",
+							&m_program_ID);
 
+	//Load Shapes
 	std::vector<tinyobj::shape_t> shapes;
+	//Load Materials
 	std::vector<tinyobj::material_t> materials;
 
+	//Load OBJ File
 	std::string err = tinyobj::LoadObj(shapes, materials, "./objs/dragon.obj");
 
+	//Check OBJ Loaded Correctly
 	if (err.size() != 0)
 	{
 		return false;
 	}
 
+	//Create Buffers
 	CreateOpenGLBuffers(shapes);
 
+	//Lighting Shader Variables
 	m_ambient_light = vec3(0.1f);
 	m_light_dir = vec3(0, -1, 0);
 	m_light_color = vec3(0.6f, 0, 0);
 	m_material_color = vec3(1);
+	m_f_specular_power = 15.0f;
 
-	m_specular_power = 15.0f;
-
-	///////////
+	///////////////////////////
 
 	Gizmos::create();
 
@@ -52,7 +59,7 @@ bool AppTemplate::StartUp()
 }
 
 
-bool AppTemplate::ShutDown()
+bool AppTemplate::ShutDown()	// SHUT DOWN //
 {
 	Gizmos::destroy();
 
@@ -61,7 +68,8 @@ bool AppTemplate::ShutDown()
 	return true;
 }
 
-bool AppTemplate::Update()
+
+bool AppTemplate::Update()	// UPDATE //
 {
 	if (Application::Update() == false)
 	{
@@ -73,6 +81,7 @@ bool AppTemplate::Update()
 	//Set time to 0
 	glfwSetTime(0.0f);
 
+	//Insert Custom Code Here//
 	if (glfwGetKey(m_window, GLFW_KEY_R) == GLFW_PRESS)
 	{
 		ReloadShader();
@@ -84,6 +93,7 @@ bool AppTemplate::Update()
 	vec4 white(1);
 	vec4 black(0, 0, 0, 1);
 
+	// GRID //  
 	//Draw Grid 20 x 20
 	for (int i = 0; i <= 20; i++)
 	{
@@ -95,15 +105,17 @@ bool AppTemplate::Update()
 			i == 10 ? white : black);
 	}
 
+	//////////
 
 	return true;
 }
 
-bool AppTemplate::Draw()
+bool AppTemplate::Draw()	// UPDATE //
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//le code//
+	//Insert Custom Code Here//
+	
 
 	glUseProgram(m_program_ID);
 
@@ -128,7 +140,7 @@ bool AppTemplate::Draw()
 	vec3 camera_pos = m_camera.GetWorldTransform()[3].xyz;
 	glUniform3fv(eye_pos_uniform, 1, (float*)&camera_pos);
 
-	glUniform1f(specular_power_uniform, m_specular_power);
+	glUniform1f(specular_power_uniform, m_f_specular_power);
 
 	for (unsigned int mesh_index = 0; mesh_index < m_gl_data.size(); mesh_index++)
 	{
@@ -137,7 +149,7 @@ bool AppTemplate::Draw()
 		glDrawElements(GL_TRIANGLES, m_gl_data[mesh_index].m_index_count, GL_UNSIGNED_INT, 0);
 	}
 
-	//////////
+	///////////////////////////
 
 
 	Gizmos::draw(m_camera.GetProjectionView());
@@ -150,16 +162,21 @@ bool AppTemplate::Draw()
 
 void AppTemplate::CreateOpenGLBuffers(std::vector<tinyobj::shape_t>& shapes)
 {
+	//?
 	m_gl_data.resize(shapes.size());
 
+	//?
 	for (unsigned int mesh_index = 0; mesh_index < shapes.size(); ++mesh_index)
 	{
+		//?
 		unsigned int float_count = shapes[mesh_index].mesh.positions.size();
 		float_count += shapes[mesh_index].mesh.normals.size();
 		float_count += shapes[mesh_index].mesh.texcoords.size();
 
+		//Create Vertex Data Vector
 		std::vector<float> vertex_data;
 
+		//?
 		vertex_data.reserve(float_count);
 
 		//Inserting Shape Mesh Vertices Data (Inserting at the first Element as it's empty)
@@ -182,6 +199,11 @@ void AppTemplate::CreateOpenGLBuffers(std::vector<tinyobj::shape_t>& shapes)
 
 
 		//Standard OpenGL Start Up Code//
+		/* Including:
+			Vertex Array Object
+			Vertex Buffer Object
+			Index Buffer Object
+		*/
 
 		//Generate Buffers (Array, Vertex and Index)
 		glGenVertexArrays(1, &m_gl_data[mesh_index].m_VAO);
@@ -202,7 +224,7 @@ void AppTemplate::CreateOpenGLBuffers(std::vector<tinyobj::shape_t>& shapes)
 		//Bind the Data to the Index (Array) Buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_gl_data[mesh_index].m_IBO);
 
-		//
+		//?
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 			shapes[mesh_index].mesh.indices.size() * sizeof(unsigned int),
 			shapes[mesh_index].mesh.indices.data(), GL_STATIC_DRAW);
@@ -218,6 +240,7 @@ void AppTemplate::CreateOpenGLBuffers(std::vector<tinyobj::shape_t>& shapes)
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 		/////////////////////////////////
 	}
 }
@@ -238,5 +261,7 @@ void AppTemplate::ReloadShader()
 {
 	glDeleteProgram(m_program_ID);
 
-	Utility::LoadShader("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl", &m_program_ID);
+	Utility::LoadShader("./shaders/lighting_vertex.glsl",
+						"./shaders/lighting_fragment.glsl",
+												&m_program_ID);
 }

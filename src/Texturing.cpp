@@ -9,20 +9,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-//Texturing::Texturing()
-//{
-//
-//}
-//
-//Texturing::~Texturing()
-//{
-//
-//}
 
 bool Texturing::StartUp()
 {
-
-
 	if (Application::StartUp() == false)
 	{
 		return false;
@@ -33,10 +22,15 @@ bool Texturing::StartUp()
 
 	Gizmos::create();
 
-	GenerateQuad(5.0f);
-	Utility::LoadShader("./shaders/texture_vertex.glsl", "./shaders/texture_fragment.glsl", &m_texture);
+	//Load Texture Function
+	LoadTexture("./textures/crate.png");
 
-	LoadTexture("./data/textures/crate.png");
+	GenerateQuad(5.0f);
+
+	Utility::LoadShader("./shaders/texture_vertex.glsl",
+						"./shaders/texture_fragment.glsl",
+							&m_program_ID /* &m_texture */);
+
 
 	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f, 5.0f);
 
@@ -99,17 +93,19 @@ bool Texturing::Draw()
 
 	int view_proj_uniform = glGetUniformLocation(m_program_ID, "projection_view");
 
-	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjectionView()) );
+	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->GetProjectionView() );
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
 	int diffuse_location = glGetUniformLocation(m_program_ID, "diffuse");
 
+	glUniform1i(diffuse_location, 0);
+
 	glBindVertexArray(m_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-	glUniform1i(diffuse_location, 0);
+
 
 	Gizmos::draw(m_camera->GetProjectionView());
 
@@ -121,8 +117,8 @@ bool Texturing::Draw()
 
 void Texturing::LoadTexture(const char* filename)
 {
-	int width;
-	int height;
+	int width = 0;
+	int height = 0;
 
 	int channels;
 
@@ -179,9 +175,9 @@ void Texturing::GenerateQuad(float size)
 	glEnableVertexAttribArray(1);	//tex coord
 
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
-								sizeof(VertexTexCoord)* 6, 0); //position
+								sizeof(VertexTexCoord), 0); //position
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-								sizeof(VertexTexCoord)* 6, (void*)sizeof(vec4)); //tex coord
+								sizeof(VertexTexCoord), (void*)sizeof(vec4)); //tex coord
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

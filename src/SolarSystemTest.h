@@ -44,3 +44,4 @@ private:
 	mat4 mat4_Planet2Moon1;
 };
 
+#endif

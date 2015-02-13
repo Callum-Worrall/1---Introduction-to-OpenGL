@@ -35,7 +35,7 @@ private:
 	vec3 m_light_color;
 	vec3 m_material_color;
 
-	float m_specular_power;
+	float m_f_specular_power;
 
 };
 

@@ -49,6 +49,9 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{49ae76c3-e8bc-4d97-8260-312eeffa1aad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Texturing">
+      <UniqueIdentifier>{2a93ab7f-7d88-4f9e-a9ac-3c2e5f06cdef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -64,9 +67,6 @@
       <Filter>Cameras</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderingGeometry.cpp">
-      <Filter>Applications\Rendering Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texturing.cpp">
       <Filter>Applications\Rendering Geometry</Filter>
     </ClCompile>
     <ClCompile Include="src\tiny_obj_loader.cc">
@@ -93,6 +93,12 @@
     <ClCompile Include="src\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\AppTemplate.cpp">
+      <Filter>Applications\Template Class</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texturing.cpp">
+      <Filter>Applications\Texturing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -114,9 +120,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\stb_image.h">
-      <Filter>Applications\Rendering Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Texturing.h">
       <Filter>Applications\Rendering Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\tiny_obj_loader.h">
@@ -142,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="src\Vertex.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppTemplate.h">
+      <Filter>Applications\Template Class</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texturing.h">
+      <Filter>Applications\Texturing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

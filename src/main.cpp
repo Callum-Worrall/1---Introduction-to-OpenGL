@@ -7,7 +7,7 @@
 
 int main()
 {
-	OBJLoader app;
+	Texturing app;
 	if (app.StartUp() == false)
 	{
 		return -1;

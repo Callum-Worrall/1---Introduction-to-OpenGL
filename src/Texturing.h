@@ -9,8 +9,6 @@
 class Texturing : public Application
 {
 public:
-	//Texturing();
-	//~Texturing();
 
 	virtual bool StartUp();
 	virtual bool ShutDown();
