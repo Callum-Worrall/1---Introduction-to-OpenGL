@@ -1,16 +1,16 @@
 #include "SolarSystemTest.h"
 
-SolarSystemTest::SolarSystemTest() : Application()
-{
-	m_window_width = 1280.0f;
-	m_window_height = 720.0f;
-}
-
-
-SolarSystemTest::~SolarSystemTest()
-{
-	Application::~Application();
-}
+//SolarSystemTest::SolarSystemTest() : Application()
+//{
+//	m_window_width = 1280.0f;
+//	m_window_height = 720.0f;
+//}
+//
+//
+//SolarSystemTest::~SolarSystemTest()
+//{
+//	Application::~Application();
+//}
 
 
 bool SolarSystemTest::StartUp()

@@ -2,12 +2,13 @@
 #include "CameraAndProjection.h"
 #include "RenderingGeometry.h"
 #include "Texturing.h"
+#include "AdvancedTexturing.h"
 #include "Lighting.h"
 #include "OBJLoader.h"
 
 int main()
 {
-	Texturing app;
+	AdvancedTexturing app;
 	if (app.StartUp() == false)
 	{
 		return -1;

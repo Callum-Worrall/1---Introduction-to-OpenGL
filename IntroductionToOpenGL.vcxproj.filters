@@ -99,6 +99,9 @@
     <ClCompile Include="src\Texturing.cpp">
       <Filter>Applications\Texturing</Filter>
     </ClCompile>
+    <ClCompile Include="src\AdvancedTexturing.cpp">
+      <Filter>Applications\Texturing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -115,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="src\RenderingGeometry.h">
       <Filter>Applications\Rendering Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\glm_include.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\stb_image.h">
       <Filter>Applications\Rendering Geometry</Filter>
@@ -152,6 +152,12 @@
     <ClInclude Include="src\Texturing.h">
       <Filter>Applications\Texturing</Filter>
     </ClInclude>
+    <ClInclude Include="src\glm_include.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AdvancedTexturing.h">
+      <Filter>Applications\Texturing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\basic_vertex.glsl">
@@ -170,6 +176,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\lighting_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\normal_mapped_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\normal_mapped_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

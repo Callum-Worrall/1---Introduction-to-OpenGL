@@ -1,5 +1,5 @@
 #include "RenderingGeometry.h"
-#include "Vertex.h"
+//#include "Vertex.h"
 #include "Utility.h"
 
 //#include "FBXFile.h"
@@ -8,16 +8,16 @@
 //#include "stb_image.h"
 
 
-RenderingGeometry::RenderingGeometry()
-{
-
-}
-
-
-RenderingGeometry::~RenderingGeometry()
-{
-
-}
+//RenderingGeometry::RenderingGeometry()
+//{
+//
+//}
+//
+//
+//RenderingGeometry::~RenderingGeometry()
+//{
+//
+//}
 
 
 bool RenderingGeometry::StartUp()

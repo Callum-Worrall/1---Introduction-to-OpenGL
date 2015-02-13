@@ -1,17 +1,5 @@
 #include "Camera.h"
 
-
-Camera::Camera()
-{
-
-}
-
-
-Camera::~Camera()
-{
-
-}
-
 bool Camera::Update()
 {
 	return true;

@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AdvancedTexturing.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AppTemplate.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AdvancedTexturing.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\AppTemplate.h" />
     <ClInclude Include="src\Camera.h" />
@@ -124,6 +126,8 @@
     <None Include="data\shaders\basic_vertex.glsl" />
     <None Include="data\shaders\lighting_vertex.glsl" />
     <None Include="data\shaders\lighting_fragment.glsl" />
+    <None Include="data\shaders\normal_mapped_fragment.glsl" />
+    <None Include="data\shaders\normal_mapped_vertex.glsl" />
     <None Include="data\shaders\texture_fragment.glsl" />
     <None Include="data\shaders\texture_vertex.glsl" />
   </ItemGroup>

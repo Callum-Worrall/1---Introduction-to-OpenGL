@@ -35,9 +35,7 @@ private:
 	vec3 m_light_dir;
 	vec3 m_light_color;
 	vec3 m_material_color;
-
 	float m_specular_power;
-	
 };
 
 #endif

@@ -10,8 +10,8 @@
 class SolarSystemTest : public Application
 {
 public:
-	SolarSystemTest();
-	~SolarSystemTest();
+	//SolarSystemTest();
+	//~SolarSystemTest();
 
 	virtual bool StartUp();
 	virtual bool ShutDown();

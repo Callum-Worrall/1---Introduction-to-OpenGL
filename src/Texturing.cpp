@@ -2,7 +2,7 @@
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
-#include "Vertex.h"
+//#include "Vertex.h"
 
 #include "Utility.h"
 
@@ -117,10 +117,7 @@ bool Texturing::Draw()
 
 void Texturing::LoadTexture(const char* filename)
 {
-	int width = 0;
-	int height = 0;
-
-	int channels;
+	int width = 0;	int height = 0;	int channels;
 
 	unsigned char* data = stbi_load(filename,
 									&width, &height,

@@ -1,11 +1,6 @@
 #include "FlyCamera.h"
 
 
-FlyCamera::FlyCamera()
-{
-
-}
-
 FlyCamera::FlyCamera(float width, float height, float a_speed, float a_sensitivity)
 {
 	m_speed = a_speed;
@@ -21,12 +16,6 @@ void FlyCamera::SetPerspective(float a_fieldOfView, float aspectRatio, float a_n
 	//m_sensitivity = a_sensitivity;
 }
 
-
-
-FlyCamera::~FlyCamera()
-{
-
-}
 
 bool FlyCamera::Update(float deltaTime)
 {

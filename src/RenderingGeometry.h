@@ -9,8 +9,8 @@
 class RenderingGeometry : public Application
 {
 public:
-	RenderingGeometry();
-	~RenderingGeometry();
+	//RenderingGeometry();
+	//~RenderingGeometry();
 
 	virtual bool StartUp();
 	virtual bool ShutDown();

@@ -4,10 +4,7 @@
 class FlyCamera : public Camera
 {
 public:
-	FlyCamera();
 	FlyCamera(float width, float height, float a_speed, float a_sensitivity);
-	
-	~FlyCamera();
 
 	bool Update(float deltaTime);
 
