@@ -3,8 +3,7 @@
 
 CameraAndProjection::CameraAndProjection()
 {
-	m_window_width = 1280.0f;
-	m_window_height = 720.0f;
+
 }
 
 
@@ -27,7 +26,7 @@ bool CameraAndProjection::StartUp()
 
 	Gizmos::create();
 
-	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f);
+	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f, 5.0f);
 
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));

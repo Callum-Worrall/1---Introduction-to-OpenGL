@@ -1,16 +1,5 @@
 #include "Application.h"
 
-
-Application::Application()
-{
-}
-
-
-Application::~Application()
-{
-}
-
-
 bool Application::StartUp()
 {
 	//Open Graphics Library Frame Work Initialized
@@ -20,7 +9,7 @@ bool Application::StartUp()
 	}
 
 	//create window x, y, title, monitor, share?
-	m_window = glfwCreateWindow(m_window_width, m_window_height, "Empty Application", nullptr, nullptr);
+	m_window = glfwCreateWindow(1280.0f, 720.0f, "Empty Application", nullptr, nullptr);
 
 	//Check that the window is alright to use
 	if (m_window == nullptr)

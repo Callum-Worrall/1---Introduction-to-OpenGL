@@ -17,7 +17,7 @@ public:
 	virtual ~Camera();
 
 	virtual bool Update();
-	virtual void SetPerspective(float fieldOfView, float aspectRatio, float a_near, float a_far);
+	virtual void SetPerspective(float a_fieldOfView, float aspectRatio, float a_near, float a_far);
 	virtual void SetLookAt(vec3 from, vec3 to, vec3 up);
 	virtual void SetPosition(vec3 a_position);
 

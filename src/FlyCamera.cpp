@@ -6,10 +6,22 @@ FlyCamera::FlyCamera()
 
 }
 
-FlyCamera::FlyCamera(float width, float height, float a_speed)
+FlyCamera::FlyCamera(float width, float height, float a_speed, float a_sensitivity)
 {
 	m_speed = a_speed;
+	m_sensitivity = a_sensitivity;
 }
+
+void FlyCamera::SetPerspective(float a_fieldOfView, float aspectRatio, float a_near, float a_far)
+{
+	projectionTransform = glm::perspective(a_fieldOfView, aspectRatio, a_near, a_far);
+	
+	
+	//m_speed = a_speed;
+	//m_sensitivity = a_sensitivity;
+}
+
+
 
 FlyCamera::~FlyCamera()
 {
@@ -63,6 +75,9 @@ bool FlyCamera::Update(float deltaTime)
 	x_delta /= 1280.0f / 2;
 	y_delta /= 720.0f / 2;
 
+	x_delta *= -m_sensitivity;
+	y_delta *= -m_sensitivity;
+
 	if (glfwGetMouseButton(curr_window, 1))
 	{
 		vec3 camera_right = vec3(world[0]);
@@ -90,4 +105,9 @@ bool FlyCamera::Update(float deltaTime)
 void FlyCamera::SetSpeed(float a_speed)
 {
 	m_speed = a_speed;
+}
+
+void FlyCamera::SetSensitivity(float a_sensitivity)
+{
+	m_sensitivity = a_sensitivity;
 }

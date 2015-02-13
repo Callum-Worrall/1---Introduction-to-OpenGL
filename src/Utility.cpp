@@ -4,8 +4,6 @@ bool Utility::LoadShader(char* vertex_filename, char* fragment_filename, GLuint*
 {
 	bool succeeded = true;
 
-	//result = 0;
-
 	FILE* vertex_file = fopen(vertex_filename, "r");
 	FILE* fragment_file = fopen(fragment_filename, "r");
 
@@ -17,17 +15,17 @@ bool Utility::LoadShader(char* vertex_filename, char* fragment_filename, GLuint*
 	{
 		fseek(vertex_file, 0, SEEK_END);
 		int vertex_file_length = ftell(vertex_file);
-		ftell(vertex_file);
+		fseek(vertex_file, 0, SEEK_SET);
 
 		fseek(fragment_file, 0, SEEK_END);
 		int fragment_file_length = ftell(fragment_file);
-		ftell(fragment_file);
+		fseek(fragment_file, 0, SEEK_SET);
 
 		char* vs_source = new char[vertex_file_length];
 		char* fs_source = new char[fragment_file_length];
 
-		fread(vs_source, 1, vertex_file_length, vertex_file);
-		fread(fs_source, 1, fragment_file_length, fragment_file);
+		vertex_file_length = fread(vs_source, 1, vertex_file_length, vertex_file);
+		fragment_file_length = fread(fs_source, 1, fragment_file_length, fragment_file);
 
 		int success = GL_FALSE;
 		int log_length = 0;
@@ -35,11 +33,13 @@ bool Utility::LoadShader(char* vertex_filename, char* fragment_filename, GLuint*
 		unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 		unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		glShaderSource(vertex_shader, 1, &vs_source, 0);
+		glShaderSource(vertex_shader, 1, &vs_source, &vertex_file_length);
 		glCompileShader(vertex_shader);
 
-		glShaderSource(fragment_shader, 1, &fs_source, 0);
+		glShaderSource(fragment_shader, 1, &fs_source, &fragment_file_length);
 		glCompileShader(fragment_shader);
+
+		glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
 
 		*result = glCreateProgram();
 
@@ -47,7 +47,7 @@ bool Utility::LoadShader(char* vertex_filename, char* fragment_filename, GLuint*
 		glAttachShader(*result, fragment_shader);
 		glLinkProgram(*result);
 
-		//int success = GL_FALSE;
+		//Sets success to true or false
 		glGetProgramiv(*result, GL_LINK_STATUS, &success);
 
 		if (success == GL_FALSE)
@@ -70,8 +70,6 @@ bool Utility::LoadShader(char* vertex_filename, char* fragment_filename, GLuint*
 
 		glDeleteShader(vertex_shader);
 		glDeleteShader(fragment_shader);
-
-		fclose;
 	}
 
 	return succeeded;

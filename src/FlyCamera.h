@@ -5,17 +5,19 @@ class FlyCamera : public Camera
 {
 public:
 	FlyCamera();
-	FlyCamera(float width, float height, float something);
-	FlyCamera(float aspect, float a_speed);
-
+	FlyCamera(float width, float height, float a_speed, float a_sensitivity);
+	
 	~FlyCamera();
 
 	bool Update(float deltaTime);
 
 	void SetSpeed(float a_speed);
+	void SetPerspective(float a_fieldOfView, float aspectRatio, float a_near, float a_far);
+	void SetSensitivity(float a_sensitivity);
 
 private:
 	float m_speed;
+	float m_sensitivity;
 	vec3 up;
 };
 

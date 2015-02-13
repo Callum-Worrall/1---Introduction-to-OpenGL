@@ -19,28 +19,43 @@
     <Filter Include="Cameras">
       <UniqueIdentifier>{09fb1ff1-2be7-4e0b-995c-c932d507ecd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Rendering Geometry">
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8ef9a4c5-4f21-4976-93dc-ba919470ab60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Lighting">
+      <UniqueIdentifier>{b3f50a15-5f9a-43d2-888f-5946e0299134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\CameraAndProjections">
+      <UniqueIdentifier>{dc931408-3f9a-4833-9f05-61d3fd7f7906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Template Class">
+      <UniqueIdentifier>{9c582688-d9e3-437e-a479-a5f8da904bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\_Base Class">
+      <UniqueIdentifier>{a8f6f3b3-b298-4ca8-9853-2d019c12264e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\OBJLoader">
+      <UniqueIdentifier>{13dc604a-5aa4-4f4e-97e6-df1e620474ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Solar System">
+      <UniqueIdentifier>{178cc4b8-dd90-4d63-8810-43210c961160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MAIN">
+      <UniqueIdentifier>{ffbf1b31-9922-4146-aecf-31c92bef68af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Rendering Geometry">
       <UniqueIdentifier>{c8586a8c-4e32-4f81-a8ba-221f55e2e804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{49ae76c3-e8bc-4d97-8260-312eeffa1aad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\gl_core_4_4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Gizmos.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>Applications</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SolarSystemTest.cpp">
-      <Filter>Applications</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CameraAndProjection.cpp">
-      <Filter>Applications</Filter>
     </ClCompile>
     <ClCompile Include="src\Camera.cpp">
       <Filter>Cameras</Filter>
@@ -49,10 +64,34 @@
       <Filter>Cameras</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderingGeometry.cpp">
-      <Filter>Rendering Geometry</Filter>
+      <Filter>Applications\Rendering Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texturing.cpp">
+      <Filter>Applications\Rendering Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiny_obj_loader.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lighting.cpp">
+      <Filter>Applications\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Applications\_Base Class</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraAndProjection.cpp">
+      <Filter>Applications\CameraAndProjections</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBJLoader.cpp">
+      <Filter>Applications\OBJLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SolarSystemTest.cpp">
+      <Filter>Applications\Solar System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>MAIN</Filter>
     </ClCompile>
     <ClCompile Include="src\Utility.cpp">
-      <Filter>Rendering Geometry</Filter>
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,15 +101,6 @@
     <ClInclude Include="src\Gizmos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Application.h">
-      <Filter>Applications</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CameraAndProjection.h">
-      <Filter>Applications</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SolarSystemTest.h">
-      <Filter>Applications</Filter>
-    </ClInclude>
     <ClInclude Include="src\Camera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
@@ -78,16 +108,60 @@
       <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderingGeometry.h">
-      <Filter>Rendering Geometry</Filter>
+      <Filter>Applications\Rendering Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\glm_include.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vertex.h">
-      <Filter>Rendering Geometry</Filter>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Applications\Rendering Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texturing.h">
+      <Filter>Applications\Rendering Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lighting.h">
+      <Filter>Applications\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application.h">
+      <Filter>Applications\_Base Class</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraAndProjection.h">
+      <Filter>Applications\CameraAndProjections</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OBJLoader.h">
+      <Filter>Applications\OBJLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SolarSystemTest.h">
+      <Filter>Applications\Solar System</Filter>
     </ClInclude>
     <ClInclude Include="src\Utility.h">
-      <Filter>Rendering Geometry</Filter>
+      <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\Vertex.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\basic_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\texture_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\texture_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\basic_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\lighting_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\lighting_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

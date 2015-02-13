@@ -226,3 +226,5 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+deps/FBXLoader/FBXFile.h
+deps/FBXLoader/FBXLoader.lib

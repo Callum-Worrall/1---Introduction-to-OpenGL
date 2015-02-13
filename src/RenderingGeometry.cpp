@@ -2,16 +2,21 @@
 #include "Vertex.h"
 #include "Utility.h"
 
+//#include "FBXFile.h"
+
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "stb_image.h"
+
 
 RenderingGeometry::RenderingGeometry()
 {
-	m_window_width = 1280.0f;
-	m_window_height = 720.0f;
+
 }
 
 
 RenderingGeometry::~RenderingGeometry()
 {
+
 }
 
 
@@ -33,7 +38,7 @@ bool RenderingGeometry::StartUp()
 	//Start up Gizmos
 	Gizmos::create();
 
-	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f);
+	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f, 5.0f);
 
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
@@ -188,6 +193,7 @@ void RenderingGeometry::GenerateGrid(unsigned int rows, unsigned int cols)
 void RenderingGeometry::GenerateShader()
 {
 //Create Shaders
+	//Utility::LoadShader("./shader/basic_vertex.glsl", "./shader/basic_fragment.glsl", &m_program_ID);
 
 	//Vertex Shader
 	char* vs_source =	"#version 410\n \
@@ -211,14 +217,10 @@ void RenderingGeometry::GenerateShader()
 							{ \n \
 							frag_color = out_color; \n \
 							} \n";
-
-	if (Utility::LoadShader(vs_source, fs_source, 0) == true)
-	{
-
-	}
-
-
-	/*unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+	
+	
+	
+	unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	
 	glShaderSource(vertex_shader, 1, &vs_source, 0);
@@ -246,5 +248,5 @@ void RenderingGeometry::GenerateShader()
 			printf("Error: Failed to link shader program!\n");
 			printf("%s\n", infoLog);
 			delete[] infoLog;
-		}*/
+		}
 }

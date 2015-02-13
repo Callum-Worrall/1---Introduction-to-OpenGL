@@ -1,3 +1,5 @@
+#define __CAMERA_AND_PROJECTION_H__
+
 #include "Application.h"
 #include "FlyCamera.h"
 

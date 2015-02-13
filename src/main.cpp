@@ -1,10 +1,13 @@
 #include "SolarSystemTest.h"
 #include "CameraAndProjection.h"
 #include "RenderingGeometry.h"
+#include "Texturing.h"
+#include "Lighting.h"
+#include "OBJLoader.h"
 
 int main()
 {
-	RenderingGeometry app;
+	OBJLoader app;
 	if (app.StartUp() == false)
 	{
 		return -1;

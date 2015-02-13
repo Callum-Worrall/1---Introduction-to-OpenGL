@@ -14,8 +14,6 @@
 class Application
 {
 public:
-	Application();
-	virtual ~Application();
 
 	virtual bool StartUp();
 	virtual bool ShutDown();

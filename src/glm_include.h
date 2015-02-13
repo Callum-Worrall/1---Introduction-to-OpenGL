@@ -12,4 +12,13 @@ using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 
+struct OpenGLData
+{
+	unsigned int m_VAO;
+	unsigned int m_VBO;
+	unsigned int m_IBO;
+
+	unsigned int m_index_count;
+};
+
 #endif

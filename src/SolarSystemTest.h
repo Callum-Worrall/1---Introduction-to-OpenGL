@@ -1,3 +1,7 @@
+#ifndef __SOLAR_SYSTEM_TEST_H__
+#define __SOLAR_SYSTEM_TEST_H__
+
+
 #include "Application.h"
 #include "FlyCamera.h"
 
