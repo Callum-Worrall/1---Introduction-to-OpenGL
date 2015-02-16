@@ -1,5 +1,16 @@
 #include "FlyCamera.h"
 
+FlyCamera::FlyCamera()
+{
+
+}
+
+
+FlyCamera::~FlyCamera()
+{
+
+}
+
 
 FlyCamera::FlyCamera(float width, float height, float a_speed, float a_sensitivity)
 {

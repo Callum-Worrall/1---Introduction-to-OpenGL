@@ -13,6 +13,9 @@ class OBJLoader : public Application
 {
 public:
 
+	OBJLoader();
+	~OBJLoader();
+
 	virtual bool StartUp();
 	virtual bool ShutDown();
 

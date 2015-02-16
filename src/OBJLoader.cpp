@@ -1,6 +1,17 @@
 #include "OBJLoader.h"
 #include "Utility.h"
 
+OBJLoader::OBJLoader()
+{
+
+}
+
+
+OBJLoader::~OBJLoader()
+{
+
+}
+
 
 bool OBJLoader::StartUp()
 {
