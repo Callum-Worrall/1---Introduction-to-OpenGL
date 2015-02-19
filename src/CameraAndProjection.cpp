@@ -12,8 +12,6 @@ CameraAndProjection::~CameraAndProjection()
 
 }
 
-//Inverse
-
 bool CameraAndProjection::StartUp()
 {
 	if (Application::StartUp() == false)

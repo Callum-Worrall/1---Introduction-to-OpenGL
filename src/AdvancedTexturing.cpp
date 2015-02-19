@@ -2,12 +2,42 @@
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
+#include "stb_image.h"
 
 #include "Utility.h"
 
-//#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
+void OnMouseButton(GLFWwindow* window, int button, int pressed, int mod_keys)
+{
+	TwEventMouseButtonGLFW(button, pressed);
+}
+
+void OnMousePosition(GLFWwindow* window, double x, double y)
+{
+	TwEventMousePosGLFW((int)x, (int)y);
+}
+
+void OnMouseScroll(GLFWwindow* window, double x, double y)
+{
+	TwEventMouseWheelGLFW((int)y);
+}
+
+void OnKey(GLFWwindow* window, int key, int scancode, int pressed, int mod_keys)
+{
+	TwEventKeyGLFW(key, pressed);
+}
+
+void OnChar(GLFWwindow* window, unsigned int c)
+{
+	TwEventCharGLFW(c, GLFW_PRESS);
+}
+
+//When the Window gets resized
+void OnWindowResize(GLFWwindow* window, int width, int height)
+{
+	TwWindowSize(width, height);
+	glViewport(0, 0, width, height);
+}
 
 bool AdvancedTexturing::StartUp()
 {
@@ -15,6 +45,15 @@ bool AdvancedTexturing::StartUp()
 	{
 		return false;
 	}
+
+	m_draw_gizmos = true;
+
+
+	glfwSetMouseButtonCallback(m_window, OnMouseButton);
+	glfwSetCursorPosCallback(m_window, OnMousePosition);
+	glfwSetScrollCallback(m_window, OnMouseScroll);
+	glfwSetCharCallback(m_window, OnChar);
+	glfwSetWindowSizeCallback(m_window, OnWindowResize);
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
@@ -46,7 +85,30 @@ bool AdvancedTexturing::StartUp()
 
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
-	m_camera->SetSpeed(3);
+	m_camera->SetSpeed(8);
+	//m_camera->SetSensitivity(2);
+
+	m_background_color = vec4(0.5, 0.5, 0.5, 1);
+
+	TwInit(TW_OPENGL_CORE, nullptr);
+	TwWindowSize(1280, 720);
+
+	m_bar = TwNewBar("Awesome Bar");
+
+	TwBar* light_bar = TwNewBar("Lights");
+
+	TwAddSeparator(m_bar, "LIGHT BAR", "");
+
+	TwAddVarRW(m_bar, "Background Colour", TW_TYPE_COLOR4F, &m_background_color, "");
+
+	TwAddVarRW(m_bar, "Light Direction", TW_TYPE_DIR3F, &m_light_dir, "group = Light");
+	TwAddVarRW(m_bar, "Light Colour", TW_TYPE_COLOR3F, &m_light_color, "group = Light");
+
+	TwAddVarRW(m_bar, "Specular Power", TW_TYPE_FLOAT, &m_specular_power, "group = Light min = 0 max = 100 step = 0.05");
+
+	TwAddVarRW(m_bar, "Draw Gizmos", TW_TYPE_BOOL8, &m_draw_gizmos, "");
+
+	TwAddVarRO(m_bar, "FPS", TW_TYPE_FLOAT, &m_fps, "precision = 5");
 
 
 	return true;
@@ -57,6 +119,9 @@ bool AdvancedTexturing::ShutDown()
 	delete m_camera;
 
 	Gizmos::destroy();
+
+	TwDeleteAllBars();
+	TwTerminate();
 
 	Application::ShutDown();
 
@@ -70,15 +135,24 @@ bool AdvancedTexturing::Update()
 		return false;
 	}
 
+	glClearColor(m_background_color.x,
+					m_background_color.y,
+					m_background_color.z,
+					m_background_color.w);
+
 	float DeltaTime = (float)glfwGetTime();
 
 	//Set time to 0
 	glfwSetTime(0.0f);
 
 
+	m_fps = 1 / DeltaTime;
+
+
 	//
 
-	m_light_dir = (glm::rotate(DeltaTime, vec3(0, 1, 0)) * vec4(m_light_dir, 0)).xyz;
+	m_light_dir = (glm::rotate(DeltaTime,
+					vec3(0, 1, 0)) * vec4(m_light_dir, 0)).xyz;
 	
 	//
 
@@ -88,16 +162,16 @@ bool AdvancedTexturing::Update()
 	vec4 white(1);
 	vec4 black(0, 0, 0, 1);
 
-	////Draw Grid 20 x 20
-	//for (int i = 0; i <= 20; i++)
-	//{
-	//	//x == -10 + i
-	//	Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10),
-	//		i == 10 ? white : black);
-	//
-	//	Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i),
-	//		i == 10 ? white : black);
-	//}
+	//Draw Grid 20 x 20
+	for (int i = 0; i <= 20; i++)
+	{
+		//x == -10 + i
+		Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10),
+			i == 10 ? white : black);
+	
+		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i),
+			i == 10 ? white : black);
+	}
 
 	return true;
 }
@@ -160,9 +234,13 @@ bool AdvancedTexturing::Draw()
 	glBindVertexArray(m_quad.m_VAO);
 	glDrawElements(GL_TRIANGLES, m_quad.m_index_count, GL_UNSIGNED_INT, 0);
 
+	if (m_draw_gizmos == true)
+	{
+		Gizmos::draw(m_camera->GetProjectionView());
+	}
+	
 
-	Gizmos::draw(m_camera->GetProjectionView());
-
+	TwDraw();
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 

@@ -5,10 +5,11 @@
 #include "AdvancedTexturing.h"
 #include "Lighting.h"
 #include "OBJLoader.h"
+#include "Quaternion.h"
 
 int main()
 {
-	AdvancedTexturing app;
+	Quaternion app;
 	if (app.StartUp() == false)
 	{
 		return -1;

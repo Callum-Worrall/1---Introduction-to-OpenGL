@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "FlyCamera.h"
 
+#include "AntTweakBar.h"
+
 #pragma once
 
 class AdvancedTexturing : public Application
@@ -19,6 +21,7 @@ public:
 	void LoadTextures(const char* a_diffuse_file,
 						const char* a_normal_file,
 						const char* a_specular_file);
+
 	void GenerateQuad(float size);
 
 
@@ -44,6 +47,14 @@ private:
 	unsigned int m_VAO;
 	unsigned int m_VBO;
 	unsigned int m_IBO;
+
+	vec4 m_background_color;
+
+	TwBar* m_bar;
+
+	bool m_draw_gizmos;
+
+	float m_fps;
 };
 
 #endif

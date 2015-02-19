@@ -19,6 +19,8 @@ public:
 	void LoadTexture(const char* filename);
 	void GenerateQuad(float size);
 
+	OpenGLData GenerateSphere(float radius, int rows, int cols);
+
 private:
 	FlyCamera* m_camera;
 
@@ -30,6 +32,7 @@ private:
 	unsigned int m_VBO;
 	unsigned int m_IBO;
 
+	OpenGLData m_sphere;
 };
 
 #endif

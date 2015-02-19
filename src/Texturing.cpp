@@ -22,10 +22,12 @@ bool Texturing::StartUp()
 
 	Gizmos::create();
 
-	//Load Texture Function
-	LoadTexture("./textures/crate.png");
+	////Load Texture Function
+	//LoadTexture("./textures/crate.png");
+	//
+	//GenerateQuad(5.0f);
 
-	GenerateQuad(5.0f);
+	GenerateSphere(10, 20, 20);
 
 	Utility::LoadShader("./shaders/texture_vertex.glsl",
 						"./shaders/texture_fragment.glsl",
@@ -179,4 +181,73 @@ void Texturing::GenerateQuad(float size)
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+
+OpenGLData Texturing::GenerateSphere(float radius, int rows, int cols)
+{
+	OpenGLData result = {};
+
+	VertexTexCoord* verts = new VertexTexCoord[cols + 1];
+
+	verts[0].position = vec4(0, 0, 0, 1);
+	verts[0].tex_coord = vec2(0.5, 0.5);
+
+	//Set Centre Vertex
+	verts[0].position = vec4(0);
+
+	//Assign other Vertices
+	for (int i = 0; i < cols; i++)
+	{
+		verts[i + 1].position = vec4(sinf((i / (float)cols) * 2 * 3.14159),
+							0,
+							cosf((i / (float)cols) * 2 * 3.14159),
+							1);
+
+		verts[i + 1].tex_coord = vec2(verts[i + 1].position.x + 0.5f,
+										verts[i + 1].position.z + 0.5f);
+	}
+
+	unsigned int* indices = new unsigned int[3 * cols];
+
+	for (int i = 0; i < cols; i++)
+	{
+		indices[i * 3 + 0] = 0;
+		indices[i * 3 + 1] = i + 1;
+		indices[i * 3 + 2] = ((i + 1) % cols) + 1;
+	}
+
+	indices[3 * cols - 1] = 1; //unsigned int[3 * cols)
+
+	glGenVertexArrays(1, &m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_IBO);
+
+	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexTexCoord)* (cols + 1),
+		verts, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * (cols * 3),
+		indices, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);	//position
+	glEnableVertexAttribArray(1);	//tex coord
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
+		sizeof(VertexTexCoord), 0); //position
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
+		sizeof(VertexTexCoord), (void*)sizeof(vec4)); //tex coord
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+	delete[] verts;
+	delete[] indices;
+
+	return result;
 }

@@ -62,24 +62,34 @@ bool FlyCamera::Update(float deltaTime)
 		world[3] += world[1] * m_speed * deltaTime;
 	}
 
+
+
 	GLFWwindow* curr_window = glfwGetCurrentContext();
 
-	double x_delta, y_delta;
+	
+	
+	
 
-	glfwGetCursorPos(curr_window, &x_delta, &y_delta);
-	glfwSetCursorPos(curr_window, 1280.0f / 2.0f, 720.0f / 2.0f);
-
-	x_delta -= 1280.0f / 2;
-	y_delta -= 720.0f / 2;
-
-	x_delta /= 1280.0f / 2;
-	y_delta /= 720.0f / 2;
-
-	x_delta *= -m_sensitivity;
-	y_delta *= -m_sensitivity;
 
 	if (glfwGetMouseButton(curr_window, 1))
 	{
+		double x_delta, y_delta;
+
+		glfwSetInputMode(curr_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+		glfwGetCursorPos(curr_window, &x_delta, &y_delta);
+		glfwSetCursorPos(curr_window, 1280.0f / 2.0f, 720.0f / 2.0f);
+
+		x_delta -= 1280.0f / 2;
+		y_delta -= 720.0f / 2;
+
+		x_delta /= 1280.0f / 2;
+		y_delta /= 720.0f / 2;
+
+		x_delta *= -m_sensitivity;
+		y_delta *= -m_sensitivity;
+
+
 		vec3 camera_right = vec3(world[0]);
 		
 		mat4 yaw = glm::rotate((float) x_delta, vec3(0, 1, 0));
@@ -90,6 +100,10 @@ bool FlyCamera::Update(float deltaTime)
 		world[0] = rot * world[0];
 		world[1] = rot * world[1];
 		world[2] = rot * world[2];
+	}
+	else
+	{
+		glfwSetInputMode(curr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 
 	world[3][3] = 1;
