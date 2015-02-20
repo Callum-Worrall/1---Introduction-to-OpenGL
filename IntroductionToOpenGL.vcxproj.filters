@@ -55,6 +55,12 @@
     <Filter Include="Applications\Quaternions">
       <UniqueIdentifier>{16a2d6e4-ee60-493b-a75e-bf11719b877b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\FBXLoader">
+      <UniqueIdentifier>{9e73aaff-5a3b-4400-90db-aff2fc66aa9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\GUI">
+      <UniqueIdentifier>{373878f1-4c72-4594-8d36-a72adf59829d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -105,11 +111,14 @@
     <ClCompile Include="src\AdvancedTexturing.cpp">
       <Filter>Applications\Texturing</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI.cpp">
-      <Filter>Applications</Filter>
-    </ClCompile>
     <ClCompile Include="src\Quaternion.cpp">
       <Filter>Applications\Quaternions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
+      <Filter>Applications\FBXLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI.cpp">
+      <Filter>Applications\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,11 +176,14 @@
     <ClInclude Include="src\AdvancedTexturing.h">
       <Filter>Applications\Texturing</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI.h">
-      <Filter>Applications</Filter>
-    </ClInclude>
     <ClInclude Include="src\Quaternion.h">
       <Filter>Applications\Quaternions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation.h">
+      <Filter>Applications\FBXLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI.h">
+      <Filter>Applications\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +209,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\normal_mapped_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\skinned_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\skinned_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

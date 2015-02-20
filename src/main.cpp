@@ -6,10 +6,11 @@
 #include "Lighting.h"
 #include "OBJLoader.h"
 #include "Quaternion.h"
+#include "Animation.h"
 
 int main()
 {
-	Quaternion app;
+	Animation app;
 	if (app.StartUp() == false)
 	{
 		return -1;

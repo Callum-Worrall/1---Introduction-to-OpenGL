@@ -131,23 +131,23 @@ bool Quaternion::Update()
 
 	///////////////////////////////
 
+	// Moving Cube //
 
+	//vec3 final_pos = glm::mix(m_positions[0],
+	//	m_positions[1],
+	//	sin_wave);
+	//
+	//glm::quat final_rot = glm::slerp(m_rotations[0],
+	//									m_rotations[1],
+	//										sin_wave);
+	//
+	////glm::toMat4  -  convert quaternion to a matrix
+	//glm::mat4 transform = glm::translate(final_pos) * glm::toMat4(final_rot);
+	//
+	//Gizmos::addTransform(transform);
+	//Gizmos::addAABBFilled(final_pos, vec3(1), vec4(0, 0, 1, 1), &transform);
 
-	vec3 final_pos = glm::mix(m_positions[0],
-		m_positions[1],
-		sin_wave);
-
-	glm::quat final_rot = glm::slerp(m_rotations[0],
-										m_rotations[1],
-											sin_wave);
-
-	//glm::toMat4  -  convert quaternion to a matrix
-	glm::mat4 transform = glm::translate(final_pos) * glm::toMat4(final_rot);
-
-	Gizmos::addTransform(transform);
-	Gizmos::addAABBFilled(final_pos, vec3(1), vec4(0, 0, 1, 1), &transform);
-
-	////////////////
+	/////////////////
 
 
 	//Set time to 0
