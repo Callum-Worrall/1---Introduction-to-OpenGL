@@ -7,10 +7,11 @@
 #include "OBJLoader.h"
 #include "Quaternion.h"
 #include "Animation.h"
+#include "Particles.h"
 
 int main()
 {
-	Animation app;
+	Particles app;
 	if (app.StartUp() == false)
 	{
 		return -1;

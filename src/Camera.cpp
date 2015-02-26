@@ -25,6 +25,7 @@ void Camera::SetPosition(vec3 a_position)
 	worldTransform[3][2] = a_position[2];
 }
 
+
 mat4 Camera::GetWorldTransform()
 {
 	return worldTransform;

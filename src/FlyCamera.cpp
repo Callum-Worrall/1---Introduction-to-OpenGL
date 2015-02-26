@@ -76,6 +76,7 @@ bool FlyCamera::Update(float deltaTime)
 		double x_delta, y_delta;
 
 		glfwSetInputMode(curr_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		//glfwSetCursorPos(curr_window, GLFW_CURSOR)
 
 		glfwGetCursorPos(curr_window, &x_delta, &y_delta);
 		glfwSetCursorPos(curr_window, 1280.0f / 2.0f, 720.0f / 2.0f);

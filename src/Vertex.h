@@ -9,6 +9,7 @@ struct Vertex
 	vec4 color;
 };
 
+
 struct VertexTexCoord
 {
 	vec4 position;
@@ -33,4 +34,5 @@ struct OpenGLData
 
 	unsigned int m_index_count;
 };
+
 #endif

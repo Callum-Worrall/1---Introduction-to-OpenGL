@@ -55,11 +55,14 @@
     <Filter Include="Applications\Quaternions">
       <UniqueIdentifier>{16a2d6e4-ee60-493b-a75e-bf11719b877b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Applications\FBXLoader">
-      <UniqueIdentifier>{9e73aaff-5a3b-4400-90db-aff2fc66aa9d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Applications\GUI">
       <UniqueIdentifier>{373878f1-4c72-4594-8d36-a72adf59829d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Particles">
+      <UniqueIdentifier>{96195483-f224-4c4d-be9a-076c0e98c19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\Animation">
+      <UniqueIdentifier>{9e73aaff-5a3b-4400-90db-aff2fc66aa9d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,10 +118,16 @@
       <Filter>Applications\Quaternions</Filter>
     </ClCompile>
     <ClCompile Include="src\Animation.cpp">
-      <Filter>Applications\FBXLoader</Filter>
+      <Filter>Applications\Animation</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI.cpp">
       <Filter>Applications\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particles.cpp">
+      <Filter>Applications\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Emitter.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,10 +189,16 @@
       <Filter>Applications\Quaternions</Filter>
     </ClInclude>
     <ClInclude Include="src\Animation.h">
-      <Filter>Applications\FBXLoader</Filter>
+      <Filter>Applications\Animation</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI.h">
       <Filter>Applications\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Particles.h">
+      <Filter>Applications\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Emitter.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +230,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\skinned_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\particle_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\particle_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

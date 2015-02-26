@@ -4,7 +4,7 @@
 #include "Application.h"
 #include "FlyCamera.h"
 
-#include "AntTweakBar.h"
+#include "GUI.h"
 
 #pragma once
 
@@ -50,7 +50,9 @@ private:
 
 	vec4 m_background_color;
 
-	TwBar* m_bar;
+
+	//GUI
+	GUI* m_lightingControl;
 
 	bool m_draw_gizmos;
 

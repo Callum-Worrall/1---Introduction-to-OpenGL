@@ -1,43 +1,11 @@
 #include "AdvancedTexturing.h"
-#include "gl_core_4_4.h"
-#include "GLFW/glfw3.h"
-#include "Gizmos.h"
-#include "stb_image.h"
-
 #include "Utility.h"
 
 
-void OnMouseButton(GLFWwindow* window, int button, int pressed, int mod_keys)
-{
-	TwEventMouseButtonGLFW(button, pressed);
-}
+#include "glm_include.h"
+#include "Gizmos.h"
+#include "stb_image.h"
 
-void OnMousePosition(GLFWwindow* window, double x, double y)
-{
-	TwEventMousePosGLFW((int)x, (int)y);
-}
-
-void OnMouseScroll(GLFWwindow* window, double x, double y)
-{
-	TwEventMouseWheelGLFW((int)y);
-}
-
-void OnKey(GLFWwindow* window, int key, int scancode, int pressed, int mod_keys)
-{
-	TwEventKeyGLFW(key, pressed);
-}
-
-void OnChar(GLFWwindow* window, unsigned int c)
-{
-	TwEventCharGLFW(c, GLFW_PRESS);
-}
-
-//When the Window gets resized
-void OnWindowResize(GLFWwindow* window, int width, int height)
-{
-	TwWindowSize(width, height);
-	glViewport(0, 0, width, height);
-}
 
 bool AdvancedTexturing::StartUp()
 {
@@ -48,12 +16,6 @@ bool AdvancedTexturing::StartUp()
 
 	m_draw_gizmos = true;
 
-
-	glfwSetMouseButtonCallback(m_window, OnMouseButton);
-	glfwSetCursorPosCallback(m_window, OnMousePosition);
-	glfwSetScrollCallback(m_window, OnMouseScroll);
-	glfwSetCharCallback(m_window, OnChar);
-	glfwSetWindowSizeCallback(m_window, OnWindowResize);
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
@@ -86,29 +48,19 @@ bool AdvancedTexturing::StartUp()
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_camera->SetSpeed(8);
-	//m_camera->SetSensitivity(2);
+	m_camera->SetSensitivity(10);
 
 	m_background_color = vec4(0.5, 0.5, 0.5, 1);
 
-	TwInit(TW_OPENGL_CORE, nullptr);
-	TwWindowSize(1280, 720);
-
-	m_bar = TwNewBar("Awesome Bar");
-
-	TwBar* light_bar = TwNewBar("Lights");
-
-	TwAddSeparator(m_bar, "LIGHT BAR", "");
-
-	TwAddVarRW(m_bar, "Background Colour", TW_TYPE_COLOR4F, &m_background_color, "");
-
-	TwAddVarRW(m_bar, "Light Direction", TW_TYPE_DIR3F, &m_light_dir, "group = Light");
-	TwAddVarRW(m_bar, "Light Colour", TW_TYPE_COLOR3F, &m_light_color, "group = Light");
-
-	TwAddVarRW(m_bar, "Specular Power", TW_TYPE_FLOAT, &m_specular_power, "group = Light min = 0 max = 100 step = 0.05");
-
-	TwAddVarRW(m_bar, "Draw Gizmos", TW_TYPE_BOOL8, &m_draw_gizmos, "");
-
-	TwAddVarRO(m_bar, "FPS", TW_TYPE_FLOAT, &m_fps, "precision = 5");
+	m_lightingControl = new GUI();
+	m_lightingControl->StartUp("Lighting Bar", 1280, 720, m_window);
+	TwAddSeparator(m_lightingControl->GetBar(), "LIGHT BAR", "");
+	TwAddVarRW(m_lightingControl->GetBar(), "Background Colour", TW_TYPE_COLOR4F, &m_background_color, "");
+	TwAddVarRW(m_lightingControl->GetBar(), "Light Direction", TW_TYPE_DIR3F, &m_light_dir, "group = Light");
+	TwAddVarRW(m_lightingControl->GetBar(), "Light Colour", TW_TYPE_COLOR3F, &m_light_color, "group = Light");
+	TwAddVarRW(m_lightingControl->GetBar(), "Specular Power", TW_TYPE_FLOAT, &m_specular_power, "group = Light min = 0 max = 100 step = 0.05");
+	TwAddVarRW(m_lightingControl->GetBar(), "Draw Gizmos", TW_TYPE_BOOL8, &m_draw_gizmos, "");
+	TwAddVarRO(m_lightingControl->GetBar(), "FPS", TW_TYPE_FLOAT, &m_fps, "precision = 5");
 
 
 	return true;
@@ -239,8 +191,9 @@ bool AdvancedTexturing::Draw()
 		Gizmos::draw(m_camera->GetProjectionView());
 	}
 	
-
-	TwDraw();
+	//GUI
+	m_lightingControl->Draw();
+	
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 
