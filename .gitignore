@@ -228,3 +228,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 deps/FBXLoader/FBXFile.h
 deps/FBXLoader/FBXLoader.lib
+deps/FBXLoader/FBXLoader_d.lib
