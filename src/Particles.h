@@ -36,6 +36,8 @@ private:
 	GUI* m_emitterControl;
 
 	vec4 m_background_color;
+
+
 };
 
 

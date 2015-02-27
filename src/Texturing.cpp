@@ -29,9 +29,11 @@ bool Texturing::StartUp()
 
 	GenerateSphere(10, 20, 20);
 
-	Utility::LoadShader("./shaders/texture_vertex.glsl",
-						"./shaders/texture_fragment.glsl",
-							&m_program_ID /* &m_texture */);
+	LoadShaders(
+		"./shaders/texture_vertex.glsl",
+		nullptr,
+		"./shaders/texture_fragment.glsl",
+		&m_program_ID);
 
 
 	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f, 5.0f);

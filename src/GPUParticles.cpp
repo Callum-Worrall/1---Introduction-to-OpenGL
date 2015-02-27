@@ -1,19 +1,23 @@
-#include "Particles.h"
-#include "Utility.h"
+#include "GPUParticles.h"
 
-#include "gl_core_4_4.h"
-#include "GLFW/glfw3.h"
-#include "Gizmos.h"
-#include "stb_image.h"
+GPUParticles::GPUParticles()
+{
+
+}
+
+GPUParticles::~GPUParticles()
+{
+
+}
 
 
-bool Particles::StartUp()
+bool GPUParticles::StartUp()
 {
 	if (Application::StartUp() == false)
 	{
 		return false;
 	}
-
+	m_Timer = 0;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
@@ -22,35 +26,26 @@ bool Particles::StartUp()
 	/////////////////////
 
 
-	m_emitter = new Emitter();
-
-	LoadShaders(
-		"./shaders/particle_vertex.glsl",
-		nullptr,
-		"./shaders/particle_fragment.glsl",
-		&m_program_ID);
-
+	m_emitter = new GPUPointEmitter();
 	m_emitter->Initialize(
-		6000, //MAX
-		vec3(0, 0, 0), //POSITION
-		500, //RATE
-		1, 1.1, //LIFESPAN (min, max)
-		2.5f, 5.0f, //VELOCITY (min, max)
-		1, 0.05f, //SIZE (start, end)
-		vec4(1, 0, 0, 1), vec4(1, 1.4f, 0, 1) //COLOUR (start, end)
-	);
+		100000,
+		0.1f, 10.0f,
+		5, 20,
+		1, 0.1f,
+		glm::vec4(1, 0, 0, 1), glm::vec4(1, 1, 0, 1));
+
 
 	m_emitterControl = new GUI();
 	m_emitterControl->StartUp("Emitter Controls", 1280, 720, m_window);
-	//TwAddSeparator(m_emitterControl->GetBar(), "LIGHT BAR", "");
+
 	TwAddVarRW(m_emitterControl->GetBar(), "Background Colour", TW_TYPE_COLOR4F,
 		&m_background_color, "");
-	
-	TwAddVarRW(m_emitterControl->GetBar(), "Rate", TW_TYPE_FLOAT,
-		&m_emitter->m_emitRate, "group = Particle");
 
-	TwAddVarRW(m_emitterControl->GetBar(), "Timer", TW_TYPE_FLOAT,
-		&m_emitter->m_emitTimer, "group = Particle");
+	//TwAddVarRW(m_emitterControl->GetBar(), "Rate", TW_TYPE_FLOAT,
+	//	&m_emitter->m_emitRate, "group = Particle");
+	//
+	//TwAddVarRW(m_emitterControl->GetBar(), "Timer", TW_TYPE_FLOAT,
+	//	&m_emitter->m_emitTimer, "group = Particle");
 
 	TwAddVarRW(m_emitterControl->GetBar(), "Lifespan Min", TW_TYPE_FLOAT,
 		&m_emitter->m_lifespanMin, "group = Particle");
@@ -59,25 +54,25 @@ bool Particles::StartUp()
 		&m_emitter->m_lifespanMax, "group = Particle");
 
 	TwAddVarRW(m_emitterControl->GetBar(), "Start Colour", TW_TYPE_COLOR4F,
-		&m_emitter->m_startColor, "group = Particle");
+		&m_emitter->m_startColour, "group = Particle");
 
 	TwAddVarRW(m_emitterControl->GetBar(), "End Colour", TW_TYPE_COLOR4F,
-		&m_emitter->m_endColor, "group = Particle");
+		&m_emitter->m_endColour, "group = Particle");
+
 
 	/////////////////////
 
 	m_camera = new FlyCamera(1280.0f, 720.0f, 10.0f, 5.0f);
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
-	m_camera->SetSpeed(10);
+	m_camera->SetSpeed(3);
 
 	return true;
 }
 
 
-bool Particles::ShutDown()
+bool GPUParticles::ShutDown()
 {
-	delete m_emitter;
 	delete m_camera;
 
 	Gizmos::destroy();
@@ -87,7 +82,7 @@ bool Particles::ShutDown()
 	return true;
 }
 
-bool Particles::Update()
+bool GPUParticles::Update()
 {
 	if (Application::Update() == false)
 	{
@@ -95,7 +90,7 @@ bool Particles::Update()
 	}
 
 	float DeltaTime = (float)glfwGetTime();
-
+	m_Timer += DeltaTime;
 	//Set time to 0
 	glfwSetTime(0.0f);
 
@@ -110,12 +105,8 @@ bool Particles::Update()
 		m_background_color.w);
 
 
-	//m_emitter->Update(DeltaTime, m_camera->GetWorldTransform());
 
-	m_emitter->Update(DeltaTime);
-	m_emitter->UpdateVertexData(
-		m_camera->GetWorldTransform()[3].xyz,
-		m_camera->GetWorldTransform()[1].xyz);
+
 
 
 
@@ -138,7 +129,7 @@ bool Particles::Update()
 	return true;
 }
 
-bool Particles::Draw()
+bool GPUParticles::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -146,20 +137,12 @@ bool Particles::Draw()
 
 	/////////////////////
 
-
-
-	glUseProgram(m_program_ID);
-
-	int proj_view_uniform = glGetUniformLocation(m_program_ID, "projection_view");
-
-	glUniformMatrix4fv(proj_view_uniform, 1, GL_FALSE,
-		(float*)&m_camera->GetProjectionView());
-
-	m_emitter->Render();
+	m_emitter->Draw(m_Timer,
+		m_camera->GetWorldTransform(),
+		m_camera->GetProjectionView());
 
 
 	m_emitterControl->Draw();
-
 
 	/////////////////////
 
@@ -168,4 +151,3 @@ bool Particles::Draw()
 
 	return true;
 }
-

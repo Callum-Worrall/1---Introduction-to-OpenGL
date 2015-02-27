@@ -26,8 +26,11 @@ bool OBJLoader::StartUp()
 
 	//le code//
 
-	Utility::LoadShader("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl",
-																					&m_program_ID);
+	LoadShaders(
+		"./shaders/lighting_vertex.glsl",
+		nullptr,
+		"./shaders/lighting_fragment.glsl",
+		&m_program_ID);
 
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -247,5 +250,9 @@ void OBJLoader::ReloadShader()
 {
 	glDeleteProgram(m_program_ID);
 
-	Utility::LoadShader("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl", &m_program_ID);
+	LoadShaders(
+		"./shaders/lighting_vertex.glsl",
+		nullptr,
+		"./shaders/lighting_fragment.glsl",
+		&m_program_ID);
 }

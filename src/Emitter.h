@@ -62,10 +62,6 @@ public:
 	
 	void Render();
 
-private:
-
-	unsigned int m_firstDead;
-
 	Particle *m_particles;
 	unsigned int m_maxParticles;
 	unsigned int m_aliveCount;
@@ -100,6 +96,12 @@ private:
 
 	vec4 m_startColor;
 	vec4 m_endColor;
+
+
+
+private:
+
+
 };
 
 #endif

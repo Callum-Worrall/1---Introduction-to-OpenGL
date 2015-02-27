@@ -8,10 +8,11 @@
 #include "Quaternion.h"
 #include "Animation.h"
 #include "Particles.h"
+#include "GPUParticles.h"
 
 int main()
 {
-	Particles app;
+	GPUParticles app;
 	if (app.StartUp() == false)
 	{
 		return -1;

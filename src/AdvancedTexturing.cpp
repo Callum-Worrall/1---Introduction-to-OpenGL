@@ -31,9 +31,11 @@ bool AdvancedTexturing::StartUp()
 						"./textures/rock_specular.tga");
 
 
-	Utility::LoadShader("./shaders/normal_mapped_vertex.glsl",
-							"./shaders/normal_mapped_fragment.glsl",
-								&m_program_ID);
+	LoadShaders(
+		"./shaders/normal_mapped_vertex.glsl",
+		nullptr,
+		"./shaders/normal_mapped_fragment.glsl",
+		&m_program_ID);
 
 	m_ambient_light = vec3(0.1f);
 	m_light_dir = glm::normalize(vec3(-1, -1, 0));
