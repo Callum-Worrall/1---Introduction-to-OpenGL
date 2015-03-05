@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Applications">
       <UniqueIdentifier>{d65b0414-e843-4873-ac90-eec398b9a6bd}</UniqueIdentifier>
     </Filter>
@@ -67,14 +55,20 @@
     <Filter Include="Applications\GPU Particles">
       <UniqueIdentifier>{9a5c8981-f59b-4689-b262-76f860eaf97a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Scene Management">
+      <UniqueIdentifier>{398d02fd-c2a3-431d-9c8c-2deb4c7551bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Gizmos">
+      <UniqueIdentifier>{83347ed1-f85a-4f01-9f55-187ddd6e2e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\OpenGL">
+      <UniqueIdentifier>{17eacb8f-3bbe-4b59-8db1-23b71f4fdfba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Mesh Loaders">
+      <UniqueIdentifier>{e73a5f36-8aab-4d2c-8792-f0a1826d859f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gl_core_4_4.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gizmos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Camera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
@@ -83,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="src\RenderingGeometry.cpp">
       <Filter>Applications\Rendering Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tiny_obj_loader.cc">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Lighting.cpp">
       <Filter>Applications\Lighting</Filter>
@@ -129,23 +120,29 @@
     <ClCompile Include="src\Particles.cpp">
       <Filter>Applications\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="src\Emitter.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="src\GPUParticles.cpp">
       <Filter>Applications\GPU Particles</Filter>
     </ClCompile>
     <ClCompile Include="src\GPUEmitter.cpp">
       <Filter>Applications\GPU Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\SceneManagement.cpp">
+      <Filter>Applications\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gizmos.cpp">
+      <Filter>Utility\Gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gl_core_4_4.c">
+      <Filter>Utility\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiny_obj_loader.cc">
+      <Filter>Utility\Mesh Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Emitter.cpp">
+      <Filter>Applications\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gl_core_4_4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gizmos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Camera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
@@ -157,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="src\stb_image.h">
       <Filter>Applications\Rendering Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Lighting.h">
       <Filter>Applications\Lighting</Filter>
@@ -188,9 +182,6 @@
     <ClInclude Include="src\Texturing.h">
       <Filter>Applications\Texturing</Filter>
     </ClInclude>
-    <ClInclude Include="src\glm_include.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\AdvancedTexturing.h">
       <Filter>Applications\Texturing</Filter>
     </ClInclude>
@@ -206,14 +197,35 @@
     <ClInclude Include="src\Particles.h">
       <Filter>Applications\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="src\Emitter.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="src\GPUParticles.h">
       <Filter>Applications\GPU Particles</Filter>
     </ClInclude>
     <ClInclude Include="src\GPUEmitter.h">
       <Filter>Applications\GPU Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneManagement.h">
+      <Filter>Applications\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AABB.h">
+      <Filter>Applications\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gizmos.h">
+      <Filter>Utility\Gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gl_core_4_4.h">
+      <Filter>Utility\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glm_include.h">
+      <Filter>Utility\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiny_obj_loader.h">
+      <Filter>Utility\Mesh Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Emitter.h">
+      <Filter>Applications\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoundingSphere.h">
+      <Filter>Applications\Scene Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,8 +15,15 @@ public:
 	virtual bool Update();
 	virtual bool Draw();
 
+	void Input();
+
+
 private:
+	bool gridActive;
+
 	FlyCamera* m_camera;
+	
+	bool gPressed;
 };
 
 #endif

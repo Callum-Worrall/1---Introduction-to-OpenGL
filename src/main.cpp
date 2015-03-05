@@ -9,10 +9,11 @@
 #include "Animation.h"
 #include "Particles.h"
 #include "GPUParticles.h"
+#include "SceneManagement.h"
 
 int main()
 {
-	GPUParticles app;
+	SceneManagement app;
 	if (app.StartUp() == false)
 	{
 		return -1;

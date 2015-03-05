@@ -43,7 +43,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>./deps/FBXLoader;./deps/glm;./deps/glfw/include;./deps/AntTweakBar/include;$(IncludePath)</IncludePath>
     <LibraryPath>./deps/FBXLoader;./deps/AntTweakBar/lib;./deps/glfw/lib-vc2013;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)build\</OutDir>
+    <OutDir>$(SolutionDir)Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -105,15 +105,18 @@
     <ClCompile Include="src\Particles.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\RenderingGeometry.cpp" />
+    <ClCompile Include="src\SceneManagement.cpp" />
     <ClCompile Include="src\SolarSystemTest.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
     <ClCompile Include="src\tiny_obj_loader.cc" />
     <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AdvancedTexturing.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\AppTemplate.h" />
+    <ClInclude Include="src\BoundingSphere.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CameraAndProjection.h" />
     <ClInclude Include="src\Animation.h" />
@@ -130,6 +133,7 @@
     <ClInclude Include="src\Particles.h" />
     <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\RenderingGeometry.h" />
+    <ClInclude Include="src\SceneManagement.h" />
     <ClInclude Include="src\SolarSystemTest.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texturing.h" />
