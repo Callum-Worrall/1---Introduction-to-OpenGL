@@ -13,7 +13,7 @@
 
 int main()
 {
-	SceneManagement app;
+	GPUParticles app;
 	if (app.StartUp() == false)
 	{
 		return -1;

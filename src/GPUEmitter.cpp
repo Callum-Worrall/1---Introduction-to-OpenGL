@@ -171,7 +171,8 @@ void GPUPointEmitter::Draw(
 	glUniform1f(location, time);
 
 	float deltaTime =
-		time - m_lastDrawTime; m_lastDrawTime = time;
+		time - m_lastDrawTime;
+	m_lastDrawTime = time;
 
 	location =
 		glGetUniformLocation(m_updateShader, "deltaTime");
