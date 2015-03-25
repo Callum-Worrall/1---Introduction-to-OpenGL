@@ -1,6 +1,21 @@
 #include "SceneManagement.h"
 
 
+#include "tiny_obj_loader.h"
+
+
+//AABB GenerateAABB(vec3* positions, unsigned int count, unsigned int stride)
+//{
+//
+//
+//	return result;
+//}
+//
+//void RenderAABB(AABB aabb)
+//{
+//
+//}
+
 bool SceneManagement::StartUp()
 {
 	if (Application::StartUp() == false)
@@ -36,6 +51,17 @@ bool SceneManagement::StartUp()
 
 	//Frustrum Planes
 	GetFrustumPlanes(m_camera->GetProjectionView(), frustumPlanes);
+
+
+	//Load Meshes
+	LoadMesh("./objs/dragon.obj");
+
+
+	//m_ambient_light = vec3(0.1f);
+	//m_light_dir = vec3(0, -1, 0);
+	//m_light_color = vec3(0.6f, 0, 0);
+	//m_material_color = vec3(1);
+	//m_specular_power = 15.0f;
 
 
 	/////////////////////
@@ -92,7 +118,10 @@ bool SceneManagement::Update()
 	//else if (d < -sphere.radius)
 	//	printf("Back\n");
 	//else
-	//	printf("On the plane\n");	////Plane Check
+	//	printf("On the plane\n");
+
+
+	////Plane Check
 	//if (d < 0)
 	//	printf("Back\n");
 	//else if (d > 0)
@@ -105,7 +134,8 @@ bool SceneManagement::Update()
 	if (d > sphere.radius)
 		planeColour = vec4(0, 1, 0, 1);
 	else if (d < -sphere.radius)
-		planeColour = vec4(1, 0, 0, 1);
+		planeColour = vec4(1, 0, 0, 1);
+
 
 	Gizmos::addTri(
 		vec3(4, 1, 4),
@@ -117,7 +147,8 @@ bool SceneManagement::Update()
 		vec3(4, 1, 4),
 		vec3(4, 1, -4),
 		vec3(-4, 1, -4),
-		planeColour);
+		planeColour);
+
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -167,37 +198,43 @@ bool SceneManagement::Update()
 void SceneManagement::GetFrustumPlanes(const mat4 &transform, vec4* planes)
 {
 	// right side
-	planes[0] = vec4(transform[0][3] - transform[1][0],
+	planes[0] = vec4(
+		transform[0][3] - transform[1][0],
 		transform[1][3] - transform[1][0],
 		transform[2][3] - transform[2][0],
 		transform[3][3] - transform[3][0]);
 
 	// left side
-	planes[1] = vec4(transform[0][3] + transform[0][0],
+	planes[1] = vec4(
+		transform[0][3] + transform[0][0],
 		transform[1][3] + transform[1][0],
 		transform[2][3] + transform[2][0],
 		transform[3][3] + transform[3][0]);
 
 	// top
-	planes[2] = vec4(transform[0][3] - transform[0][1],
+	planes[2] = vec4(
+		transform[0][3] - transform[0][1],
 		transform[1][3] - transform[1][1],
 		transform[2][3] - transform[2][1],
 		transform[3][3] - transform[3][1]);
 
 	// bottom
-	planes[3] = vec4(transform[0][3] + transform[0][1],
+	planes[3] = vec4(
+		transform[0][3] + transform[0][1],
 		transform[1][3] + transform[1][1],
 		transform[2][3] + transform[2][1],
 		transform[3][3] + transform[3][1]);
 
 	// far
-	planes[4] = vec4(transform[0][3] - transform[0][2],
+	planes[4] = vec4(
+		transform[0][3] - transform[0][2],
 		transform[1][3] - transform[1][2],
 		transform[2][3] - transform[2][2],
 		transform[3][3] - transform[3][2]);
 
 	// near
-	planes[5] = vec4(transform[0][3] + transform[0][2],
+	planes[5] = vec4(
+		transform[0][3] + transform[0][2],
 		transform[1][3] + transform[1][2],
 		transform[2][3] + transform[2][2],
 		transform[3][3] + transform[3][2]);
@@ -217,6 +254,23 @@ bool SceneManagement::Draw()
 	/////////////////////
 
 
+	//loop through meshes in scene
+
+	//if in frustum, render meshes
+
+	//loop through frustum planes
+
+		//list meshes being rendered
+
+	//else, not in frustum, do not render
+		//list meshes that stopped being rendered
+		
+
+
+	//for (unsigned int mesh_index = 0; mesh_index < length; mesh_index++)
+	//{
+	//
+	//}
 
 
 
@@ -268,3 +322,144 @@ void SceneManagement::Input()
 	}
 
 }
+
+
+//bool OnPositivePlaneSide(vec4 plane, AABB aabb)
+//{
+//	vec3 planeTestA, planeTestB;
+//
+//	if (plane.x >= 0)
+//	{
+//		planeTestA.x = aabb.min.x;
+//		planeTestB.x = aabb.max.x;
+//	}
+//	else
+//	{
+//		planeTestA.x = aabb.max.x;
+//		planeTestB.x = aabb.min.x;
+//	}
+//
+//	if (plane.y >= 0)
+//	{
+//		planeTestA.y = aabb.min.y;
+//		planeTestB.y = aabb.max.y;
+//	}
+//	else
+//	{
+//		planeTestA.y = aabb.max.y;
+//		planeTestB.y = aabb.min.y;
+//	}
+//
+//	if (plane.z >= 0)
+//	{
+//		planeTestA.z = aabb.min.z;
+//		planeTestB.z = aabb.max.z;
+//	}
+//	else
+//	{
+//		planeTestA.z = aabb.max.z;
+//		planeTestB.z = aabb.min.z;
+//	}
+//
+//	float dA = dot(vec3(plane), planeTestA) + plane.w;
+//	float dB = dot(vec3(plane), planeTestB) + plane.w;
+//
+//	return (dA >= 0, dB >= 0);
+//}
+
+
+//MeshObject SceneManagement::LoadMesh(char* obj_filename)
+//{
+//	std::vector<tinyobj::shape_t> shapes;
+//	std::vector<tinyobj::material_t> materials;
+//
+//	tinyobj::LoadObj(shapes, materials, obj_filename);
+//
+//	for (unsigned int shape_index = 0; shape_index < shapes.size(); shape_index++)
+//	{
+//
+//		unsigned int meshCount = m_meshes.size();
+//
+//		m_meshes.resize(m_meshes.size() + shape_index);
+//
+//		std::vector<float> vertex_data;
+//
+//
+//
+//		unsigned int float_count = shapes[shape_index].mesh.positions.size();
+//		float_count += shapes[shape_index].mesh.normals.size();
+//		//float_count += shapes[mesh_index].mesh.texcoords.size();
+//
+//		vertex_data.reserve(float_count);
+//
+//		//Inserting Shape Mesh Vertices Data (Inserting at the first Element as it's empty)
+//		vertex_data.insert(vertex_data.end(),
+//			//We want to insert from the start,
+//			shapes[shape_index].mesh.positions.begin(),
+//			// to the end
+//			shapes[shape_index].mesh.positions.end());
+//
+//		//Inserting  GL Data 
+//		vertex_data.insert(vertex_data.end(),
+//			//We want to insert from the start,
+//			shapes[shape_index].mesh.normals.begin(),
+//			// to the end
+//			shapes[shape_index].mesh.normals.end());
+//
+//		//Set the Data's Index Count to the size of the Mesh's Indices
+//		m_meshes[shape_index].m_index_count =
+//			shapes[shape_index].mesh.indices.size();
+//
+//
+//		//Standard OpenGL Start Up Code//
+//
+//		//Generate Buffers (Array, Vertex and Index)
+//		glGenVertexArrays(1, &m_meshes[mesh_index].m_VAO);
+//		glGenBuffers(1, &m_meshes[mesh_index].m_VBO);
+//		glGenBuffers(1, &m_meshes[mesh_index].m_IBO);
+//
+//		//Bind Data to Array Buffer
+//		glBindVertexArray(m_meshes[mesh_index].m_VAO);
+//
+//		//Bind the Vertex Buffer to the Vertex Array
+//		glBindBuffer(GL_ARRAY_BUFFER, m_meshes[mesh_index].m_VBO);
+//
+//		//Insert Data into (OpenGL?)
+//		glBufferData(GL_ARRAY_BUFFER,
+//			vertex_data.size() * sizeof(float),
+//			vertex_data.data(), GL_STATIC_DRAW);
+//
+//		//Bind the Data to the Index (Array) Buffer
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshes[mesh_index].m_IBO);
+//
+//		//
+//		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+//			shapes[shape_index].mesh.indices.size() * sizeof(unsigned int),
+//			shapes[shape_index].mesh.indices.data(), GL_STATIC_DRAW);
+//
+//		//Enable the Two Attributes to Create the Format for the Buffer Arrays
+//		glEnableVertexAttribArray(0); //Position Attrib.
+//		glEnableVertexAttribArray(1); //Normal Data Attrib.
+//
+//		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+//		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 0,
+//			(void*)(sizeof(float)*shapes[shape_index].mesh.positions.size()));
+//
+//		glBindVertexArray(0);
+//		glBindBuffer(GL_ARRAY_BUFFER, 0);
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//
+//		m_meshes[mesh_index].m_aabb = GenerateAABB(
+//			(vec3*)&shapes[shape_index]).mesh.positions[0],
+//			shapes[shape_index].mesh.positions.size() / 3);
+//	}
+//}
+//
+//void SceneManagement::DrawMesh(MeshObject mesh)
+//{
+//	glBindVertexArray(mesh.m_VAO);
+//
+//	glDrawElements(GL_TRIANGLES, mesh.m_index_count, GL_UNSIGNED_INT, 0);
+//}
+
+

@@ -21,6 +21,10 @@ public:
 
 	void GetFrustumPlanes(const mat4 &transform, vec4* planes);
 
+
+	MeshObject LoadMesh(char* obj_filename);
+	void DrawMesh(MeshObject mesh);
+
 private:
 	bool gridActive;
 
@@ -37,6 +41,17 @@ private:
 
 
 	bool m_gPressed;
+
+
+	//MeshObject(Struct) meshIndex[];
+
+
+
+	bool inFrustum;
 };
 
 #endif
+
+
+//MeshObject struct
+//Altered AABB Version with AABB
