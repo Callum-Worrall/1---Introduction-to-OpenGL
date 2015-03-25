@@ -67,6 +67,12 @@
     <Filter Include="Utility\Mesh Loaders">
       <UniqueIdentifier>{e73a5f36-8aab-4d2c-8792-f0a1826d859f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Render Targets">
+      <UniqueIdentifier>{52a8b7b8-0cc6-4a0c-81f3-a0a2791139aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Applications\PostProcess">
+      <UniqueIdentifier>{0d84d0e2-85de-4592-b312-92671513c7b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -140,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="src\Emitter.cpp">
       <Filter>Applications\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderTargets.cpp">
+      <Filter>Applications\Render Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PostProcess.cpp">
+      <Filter>Applications\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +239,12 @@
     <ClInclude Include="src\BoundingSphere.h">
       <Filter>Applications\Scene Management</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderTargets.h">
+      <Filter>Applications\Render Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PostProcess.h">
+      <Filter>Applications\PostProcess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\basic_vertex.glsl">
@@ -272,6 +290,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\gpu_particle_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\post_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\post_vertex.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

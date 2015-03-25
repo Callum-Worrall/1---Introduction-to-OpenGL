@@ -22,8 +22,8 @@ public:
 	void GetFrustumPlanes(const mat4 &transform, vec4* planes);
 
 
-	MeshObject LoadMesh(char* obj_filename);
-	void DrawMesh(MeshObject mesh);
+	//MeshObject LoadMesh(char* obj_filename);
+	//void DrawMesh(MeshObject mesh);
 
 private:
 	bool gridActive;

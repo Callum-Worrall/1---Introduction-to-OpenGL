@@ -103,8 +103,10 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\OBJLoader.cpp" />
     <ClCompile Include="src\Particles.cpp" />
+    <ClCompile Include="src\PostProcess.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\RenderingGeometry.cpp" />
+    <ClCompile Include="src\RenderTargets.cpp" />
     <ClCompile Include="src\SceneManagement.cpp" />
     <ClCompile Include="src\SolarSystemTest.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
@@ -131,8 +133,10 @@
     <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\OBJLoader.h" />
     <ClInclude Include="src\Particles.h" />
+    <ClInclude Include="src\PostProcess.h" />
     <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\RenderingGeometry.h" />
+    <ClInclude Include="src\RenderTargets.h" />
     <ClInclude Include="src\SceneManagement.h" />
     <ClInclude Include="src\SolarSystemTest.h" />
     <ClInclude Include="src\stb_image.h" />
@@ -153,6 +157,8 @@
     <None Include="data\shaders\normal_mapped_vertex.glsl" />
     <None Include="data\shaders\particle_fragment.glsl" />
     <None Include="data\shaders\particle_vertex.glsl" />
+    <None Include="data\shaders\post_fragment.glsl" />
+    <None Include="data\shaders\post_vertex.glsl" />
     <None Include="data\shaders\skinned_fragment.glsl" />
     <None Include="data\shaders\skinned_vertex.glsl" />
     <None Include="data\shaders\texture_fragment.glsl" />

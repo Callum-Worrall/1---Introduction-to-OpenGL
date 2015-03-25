@@ -10,10 +10,11 @@
 #include "Particles.h"
 #include "GPUParticles.h"
 #include "SceneManagement.h"
+#include "RenderTargets.h"
 
 int main()
 {
-	SceneManagement app;
+	RenderTargets app;
 	if (app.StartUp() == false)
 	{
 		return -1;

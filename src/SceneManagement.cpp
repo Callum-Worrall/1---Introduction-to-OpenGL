@@ -53,8 +53,8 @@ bool SceneManagement::StartUp()
 	GetFrustumPlanes(m_camera->GetProjectionView(), frustumPlanes);
 
 
-	//Load Meshes
-	LoadMesh("./objs/dragon.obj");
+	////Load Meshes
+	//LoadMesh("./objs/dragon.obj");
 
 
 	//m_ambient_light = vec3(0.1f);
