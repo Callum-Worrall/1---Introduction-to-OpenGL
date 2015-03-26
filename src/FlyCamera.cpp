@@ -2,7 +2,7 @@
 
 FlyCamera::FlyCamera()
 {
-
+	SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 }
 
 
@@ -21,10 +21,6 @@ FlyCamera::FlyCamera(float width, float height, float a_speed, float a_sensitivi
 void FlyCamera::SetPerspective(float a_fieldOfView, float aspectRatio, float a_near, float a_far)
 {
 	projectionTransform = glm::perspective(a_fieldOfView, aspectRatio, a_near, a_far);
-	
-	
-	//m_speed = a_speed;
-	//m_sensitivity = a_sensitivity;
 }
 
 

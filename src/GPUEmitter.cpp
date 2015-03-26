@@ -122,8 +122,8 @@ void GPUPointEmitter::CreateUpdateShader()
 	unsigned int vertex_shader;
 
 	LoadShaderType(
+		"./shaders/gpu_particle_vertex.glsl", 
 		GL_VERTEX_SHADER,
-		"./shaders/gpu_particle_vertex.glsl",
 		&vertex_shader);
 
 	m_updateShader = glCreateProgram();

@@ -17,6 +17,7 @@ bool GPUParticles::StartUp()
 	{
 		return false;
 	}
+
 	m_Timer = 0;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);

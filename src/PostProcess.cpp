@@ -20,23 +20,28 @@ bool PostProcess::StartUp()
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_camera->SetSpeed(15);
 
-	gPressed = false;
+	gPressed = true;
 
 	/////////////////////
 
-	//build frame buffer
-	GenerateFramebuffer();
+	//Set m_timer to Zero
+	m_timer = 0.0f;
 
-	//create the quad mesh
+	//Create the Quad Mesh
 	GenerateScreenSpaceQuad();
 
-	//load the post effect shader
-	LoadShaders("./shaders/post_vertex.glsl", 0, "./shaders/post_fragment.glsl", &m_post_program);
+	//Build Frame Buffer
+	GenerateFramebuffer();
 
+	//Load the post process shaders
+	LoadShaders("./shaders/post_vertex.glsl", nullptr, "./shaders/post_fragment.glsl", &m_post_program_id);
 
-
-
-
+	//Set Colours
+	white = vec4(1);
+	black = vec4(0, 0, 0, 1);
+	red = vec4(1, 0, 0, 1);
+	blue = vec4(0, 0, 1, 1);
+	yellow = vec4(1, 1, 0, 1);
 
 	/////////////////////
 
@@ -67,6 +72,8 @@ bool PostProcess::Update()
 	//Set time to 0
 	glfwSetTime(0.0f);
 
+	m_timer += DeltaTime;
+
 	//Camera Update
 	m_camera->Update(DeltaTime);
 
@@ -77,12 +84,48 @@ bool PostProcess::Update()
 	/////////////////////
 
 
+	////Creates Transform Axis
+	Gizmos::addTransform(mat4(1));
+
+	//Set the orbits
+
+	//Sun Orbit (Transform Matrix)
+	mat4_Sun = BuildOrbitMatrix(m_timer, 0, 0);
+
+	//Planet 1 Orbit (Transform Matrix)
+	mat4_Planet1 = mat4_Sun * BuildOrbitMatrix(m_timer * 2.5f, 4, 0);
+
+	//Planet 2 Orbit (Transform Matrix)
+	mat4_Planet2 = mat4_Sun * BuildOrbitMatrix(m_timer * 0.5f, 9, 0);
+
+	//Planet 2 Moon 1 Orbit (Transform Matrix)
+	mat4_Planet2Moon1 = mat4_Planet2 * BuildOrbitMatrix(m_timer * 2.5f, 1, 5);
+
+	//Planet 3 Orbit (Transform Matrix)
+	mat4_Planet3 = mat4_Sun * BuildOrbitMatrix(m_timer * 0.5f, 13, 0);
 
 
+	//Create the Meshes
 
+	//Sun Object Mesh
+	Gizmos::addSphere(mat4_Sun[3].xyz,
+		2.0f, 20, 20, yellow, &mat4_Sun);
 
+	//Planet 1 Object Mesh
+	Gizmos::addSphere(mat4_Planet1[3].xyz,
+		0.2f, 20, 20, blue, &mat4_Planet1);
 
+	//Planet 2 Object Mesh
+	Gizmos::addSphere(mat4_Planet2[3].xyz,
+		0.27f, 20, 20, blue, &mat4_Planet2);
 
+	//Planet 3 Object Mesh
+	Gizmos::addSphere(mat4_Planet3[3].xyz,
+		0.6f, 20, 20, blue, &mat4_Planet3);
+
+	//Planet 2 Moon 1 Object Mesh
+	Gizmos::addSphere(mat4_Planet2Moon1[3].xyz,
+		0.07f, 20, 20, red, &mat4_Planet2Moon1);
 
 	/////////////////////
 
@@ -109,9 +152,7 @@ bool PostProcess::Update()
 
 bool PostProcess::Draw()
 {
-	//
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-	//
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -124,7 +165,7 @@ bool PostProcess::Draw()
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(m_post_program);
+	glUseProgram(m_post_program_id);
 
 	glBindTexture(GL_TEXTURE_2D, m_fbo_texture);
 	glBindVertexArray(m_quad.m_VAO);
@@ -137,25 +178,6 @@ bool PostProcess::Draw()
 	glfwPollEvents();
 
 	return true;
-}
-
-void PostProcess::Input()
-{
-	GLFWwindow* window = glfwGetCurrentContext();
-
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && gPressed == false)
-	{
-		if (gridActive == true)
-		{
-			gridActive = false;
-		}
-		else
-			gridActive = true;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE)
-	{
-		gPressed = false;
-	}
 }
 
 
@@ -196,9 +218,9 @@ void PostProcess::GenerateScreenSpaceQuad()
 	float vertex_data[]
 	{
 		-1, -1, 0, 1, half_texel.x, half_texel.y,
-			1, -1, 0, 1, 1 - half_texel.x, half_texel.y,
-			1, 1, 0, 1, 1 - half_texel.x, 1 - half_texel.y,
-			-1, 1, 0, 1, half_texel.x, 1 - half_texel.y,
+		1, -1, 0, 1, 1 - half_texel.x, half_texel.y,
+		1, 1, 0, 1, 1 - half_texel.x, 1 - half_texel.y,
+		-1, 1, 0, 1, half_texel.x, 1 - half_texel.y,
 	};
 
 	unsigned int index_data[] =
@@ -228,4 +250,35 @@ void PostProcess::GenerateScreenSpaceQuad()
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+
+
+void PostProcess::Input()
+{
+	GLFWwindow* window = glfwGetCurrentContext();
+
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && gPressed == false)
+	{
+		if (gridActive == true)
+		{
+			gridActive = false;
+		}
+		else
+			gridActive = true;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE)
+	{
+		gPressed = false;
+	}
+}
+
+
+mat4 PostProcess::BuildOrbitMatrix(float local_rotation, float radius, float orbit_rotation)
+{
+	mat4 result = glm::rotate(local_rotation, vec3(0, 1, 0)) *
+		glm::translate(vec3(radius, 0, 0)) *
+		glm::rotate(orbit_rotation, vec3(0, 1, 0));
+
+	return result;
 }

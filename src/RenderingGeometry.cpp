@@ -1,23 +1,5 @@
 #include "RenderingGeometry.h"
-//#include "Vertex.h"
 #include "Utility.h"
-
-//#include "FBXFile.h"
-
-//#define STB_IMAGE_IMPLEMENTATION
-//#include "stb_image.h"
-
-
-//RenderingGeometry::RenderingGeometry()
-//{
-//
-//}
-//
-//
-//RenderingGeometry::~RenderingGeometry()
-//{
-//
-//}
 
 
 bool RenderingGeometry::StartUp()

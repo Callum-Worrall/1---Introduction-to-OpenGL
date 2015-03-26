@@ -30,24 +30,12 @@ bool SolarSystemTest::StartUp()
 
 	m_camera->SetPerspective(glm::radians(60.0f), 16 / 9.f, 0.1f, 1000.f);
 	m_camera->SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
-	m_camera->SetSpeed(3);
-
-	////camera - position, rotation, up
-	//m_view = glm::lookAt(vec3(10, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
-	//
-	//glm::perspective - Sets Field of m_view (Field of m_view Y, Aspect Ratio, Near, Far)
-	//m_projection = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
-	//
-	////Camera Co-Ordinates
-	//m_camera_x = -10.0f;
-	//m_camera_z = -10.0f;
-
-
+	m_camera->SetSpeed(15);
 
 	//Set m_timer to Zero
 	m_timer = 0.0f;
 
-	//Create Colours
+	//Set Colours
 	white = vec4(1);
 	black = vec4(0, 0, 0, 1);
 	red = vec4(1, 0, 0, 1);

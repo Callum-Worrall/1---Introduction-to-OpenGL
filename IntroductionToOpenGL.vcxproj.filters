@@ -73,6 +73,9 @@
     <Filter Include="Applications\PostProcess">
       <UniqueIdentifier>{0d84d0e2-85de-4592-b312-92671513c7b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Deferred Rendering">
+      <UniqueIdentifier>{a49644f4-e6ec-4689-8f57-4a4583179d94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -152,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="src\PostProcess.cpp">
       <Filter>Applications\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeferredRendering.cpp">
+      <Filter>Applications\Deferred Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,15 +251,12 @@
     <ClInclude Include="src\PostProcess.h">
       <Filter>Applications\PostProcess</Filter>
     </ClInclude>
+    <ClInclude Include="src\DeferredRendering.h">
+      <Filter>Applications\Deferred Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\basic_vertex.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="data\shaders\texture_fragment.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="data\shaders\texture_vertex.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\basic_fragment.glsl">
@@ -296,6 +299,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\post_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\textured_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\textured_vertex.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

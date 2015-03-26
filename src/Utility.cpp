@@ -1,16 +1,17 @@
 #include "Utility.h"
 #include "glm_include.h"
+#include <cstdio>
 #include "gl_core_4_4.h"
 
 
 bool LoadShaderType(
-	unsigned int shader_type,
-	char* shader_pathname,
+	char* shader_filename,
+	GLenum shader_type,
 	unsigned int* output)
 {
 	bool succeeded = true;
 
-	FILE* shader_file = fopen(shader_pathname, "r");
+	FILE* shader_file = fopen(shader_filename, "r");
 
 	if (shader_file == nullptr)
 	{
@@ -37,12 +38,12 @@ bool LoadShaderType(
 
 		if (success == GL_FALSE)
 		{
-			GLint log_length;
+			GLint log_length = 0;
 
 			glGetShaderiv(shader_handle, GL_INFO_LOG_LENGTH, &log_length);
 			char* infoLog = new char[log_length];
 
-			glGetShaderInfoLog(shader_handle, log_length, 0, infoLog);
+			glGetShaderInfoLog(shader_handle, log_length, NULL, infoLog);
 			printf("ERROR: Failure to compile the Shader program.\n");
 			printf("%s\n", infoLog);
 
@@ -50,10 +51,14 @@ bool LoadShaderType(
 
 			succeeded = false;
 		}
-
-		*output = shader_handle;
+		if (succeeded)
+		{
+			*output = shader_handle;
+		}
+		
 
 		delete[] shader_source;
+		fclose(shader_file);
 	}
 
 	return succeeded;
@@ -66,63 +71,66 @@ bool LoadShaders(
 	char* fragment_filename,
 	GLuint* result)
 {
+	printf("--- SHADERS ---\n");
+
 	bool succeeded = true;
 
 	*result = glCreateProgram();
 
 	//Vertex Shader
 	unsigned int vertex_shader;
-	if(LoadShaderType(GL_VERTEX_SHADER, vertex_filename, &vertex_shader))
+
+	if (LoadShaderType(vertex_filename, GL_VERTEX_SHADER, &vertex_shader))
 	{
 		glAttachShader(*result, vertex_shader);
 		glDeleteShader(vertex_shader);
 
-		printf("Vertex Shader Loaded Successfully.\n");
+		printf("+ Vertex Shader Loaded Successfully.\n");
 	}
 	else
-		printf("Vertex Shader Failed to Load.\n");
+		printf("- Vertex Shader Failed to Load.\n");
 
 
 	//Geometry Shader
 	if (geometry_filename != nullptr)
 	{
 		unsigned int geometry_shader;
-		if(LoadShaderType(GL_GEOMETRY_SHADER, geometry_filename, &geometry_shader))
+		if (LoadShaderType(geometry_filename, GL_GEOMETRY_SHADER, &geometry_shader))
 		{
 			glAttachShader(*result, geometry_shader);
 			glDeleteShader(geometry_shader);
 
-			printf("Geometry Shader Loaded Successfully.\n");
+			printf("+ Geometry Shader Loaded Successfully.\n");
 		}
 		else
 		{
-			printf("Geometry Shader Failed to Load.\n");
+			printf("- Geometry Shader Failed to Load.\n");
 		}
 
 	}
 	else
-		printf(" --- No Geometry Shader to Load.\n");
+		printf("No Geometry Shader Assigned to Load.\n");
 
 
 	//Fragment Shader
 	if (fragment_filename != nullptr)
 	{
 		unsigned int fragment_shader;
-		if (LoadShaderType(GL_FRAGMENT_SHADER, fragment_filename, &fragment_shader))
+		if (LoadShaderType(fragment_filename, GL_FRAGMENT_SHADER, &fragment_shader))
 		{
 			
 			glAttachShader(*result, fragment_shader);
 			glDeleteShader(fragment_shader);
 
-			printf("Fragment Shader Loaded Successfully.\n");
+			printf("+ Fragment Shader Loaded Successfully.\n");
 		}
 		else
 		{
-			printf("Fragment Shader Failed to Load.\n");
+			printf("- Fragment Shader Failed to Load.\n");
 		}
 	}
 	else
-		printf(" --- No Fragment Shader to Load.\n");
+		printf("No Fragment Shader to Load.\n");
 
 	//Link Program
 	glLinkProgram(*result);

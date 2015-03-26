@@ -13,7 +13,7 @@ public:
 };
 
 
-bool LoadShaderType(unsigned int shader_type, char* shader_pathname, unsigned int* output);
+bool LoadShaderType(char* shader_filename, unsigned int shader_type, unsigned int* output);
 
 bool LoadShaders(char* vertex_filename, char* geometry_filename, char* fragment_filename, GLuint* result);
 

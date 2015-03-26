@@ -1,17 +1,12 @@
 #version 410
 
-in vec2 frag_texcoord;
+in vec2 texcoord;
 
-out vec4 frag_color;
+out vec4 fragcolor;
 
-uniform sampler2D input_texture;
-
-vec4 BoxBlur()
-{
-
-}
+uniform sampler2D target;
 
 void main()
 {
-	frag_color = texture(input_texture, frag_texcoord);
+	fragcolor = texture(target, texcoord);
 }

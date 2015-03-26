@@ -1,20 +1,22 @@
-#include "SolarSystemTest.h"
-#include "CameraAndProjection.h"
-#include "RenderingGeometry.h"
-#include "Texturing.h"
-#include "AdvancedTexturing.h"
-#include "Lighting.h"
-#include "OBJLoader.h"
-#include "Quaternion.h"
-#include "Animation.h"
-#include "Particles.h"
-#include "GPUParticles.h"
-#include "SceneManagement.h"
-#include "RenderTargets.h"
+#include "SolarSystemTest.h"	//working
+#include "CameraAndProjection.h"	//working
+#include "RenderingGeometry.h"	//working
+#include "Texturing.h"	//not working
+#include "AdvancedTexturing.h"	//working
+#include "OBJLoader.h"	//working - formerly known as lighting
+#include "Quaternion.h"	//working
+#include "Animation.h"	//not working - missing fbxloader assumed
+#include "Particles.h"	//working, also contains GUI
+#include "GPUParticles.h"	//working, also contains GUI
+#include "SceneManagement.h"	//working
+
+#include "RenderTargets.h"	//working
+#include "PostProcess.h"	//not working (greyed out)
+#include "DeferredRendering.h" //to do
 
 int main()
 {
-	RenderTargets app;
+	PostProcess app;
 	if (app.StartUp() == false)
 	{
 		return -1;

@@ -14,6 +14,8 @@ public:
 	virtual bool Update();
 	virtual bool Draw();
 
+	void Input();
+
 	void GenerateFramebuffer();
 	void GeneratePlane();
 
@@ -27,6 +29,8 @@ public:
 
 	unsigned int m_program_id; //ADDED THIS
 
+	bool gridActive;
+	bool gPressed;
 };
 
 #endif //CAM_PROJ_H_

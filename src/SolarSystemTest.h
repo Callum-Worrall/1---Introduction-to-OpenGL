@@ -25,12 +25,6 @@ private:
 
 	FlyCamera* m_camera;
 
-	float m_camera_x;
-	float m_camera_z;
-
-	mat4 m_view;
-	mat4 m_projection;
-
 	vec4 white;
 	vec4 black;
 	vec4 red;
