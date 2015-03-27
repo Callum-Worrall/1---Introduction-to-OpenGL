@@ -29,14 +29,40 @@ bool PerlinNoise::StartUp()
 	BuildGrid(vec2(30, 30), glm::ivec2(128, 128));
 
 	//Load Texture
-	BuildPerlinTexture(glm::ivec2(128, 128), 6, 0.6f);
 
-	m_scale = 2.0f;
+
+	m_dims = glm::ivec2(128, 128);
+	m_octaves = 6;
+	m_persistence = 0.6f;
+	m_scale = 12.0f;
+
+	lastDims = m_dims;
+	lastOctaves = m_octaves;
+	lastPersistence = m_persistence;
+
+	BuildPerlinTexture(m_dims, m_octaves, m_persistence);
+
+
 
 	//Load Shaders
 	LoadShaders("./shaders/perlin_vertex.glsl", nullptr, "./shaders/perlin_fragment.glsl", &m_program_id);
 
 	/////////////////////
+
+	TerrainWindow.StartUp("Terrain", 1280, 720);
+
+	TwAddSeparator(TerrainWindow.GetBar(), "TERRAIN BAR", "");
+
+	//TerrainWindow.AddBarF("Dimension X", &(m_dims->x), "");
+	//TerrainWindow.AddBarF("Dimension Y", &(m_dims->y), "");
+
+	TerrainWindow.AddBarI("Octaves", &m_octaves, "min = 0 max = 24 step = 1");
+	TerrainWindow.AddBarF("Persisistence", &m_persistence, "min = 0.0f max = 0.99f step = 0.03");
+	TerrainWindow.AddBarF("Scale", &m_scale, "");
+
+	/////////////////////
+
+	srand(time(0));
 
 	return true;
 }
@@ -75,12 +101,13 @@ bool PerlinNoise::Update()
 	/////////////////////
 
 
-
-
-
-
-
-
+	if (m_dims != lastDims || lastOctaves != m_octaves || lastPersistence != m_persistence)
+	{
+		BuildPerlinTexture(m_dims, m_octaves, m_persistence);
+		lastDims = m_dims;
+		lastOctaves = m_octaves;
+		lastPersistence = m_persistence;
+	}
 
 	/////////////////////
 
@@ -128,16 +155,34 @@ bool PerlinNoise::Draw()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_perlin_texture);
 
+
 	int scale_uniform =
 		glGetUniformLocation(m_program_id, "scale");
 	glUniform1f(scale_uniform, m_scale);
 
+	int persistence_uniform =
+		glGetUniformLocation(m_program_id, "persistence");
+	glUniform1f(persistence_uniform, m_persistence);
+
+	int min_uniform =
+		glGetUniformLocation(m_program_id, "min");
+	glUniform1f(min_uniform, MIN);
+
+	int max_uniform =
+		glGetUniformLocation(m_program_id, "max");
+	glUniform1f(max_uniform, MAX);
 
 	glBindVertexArray(m_plane_mesh.m_VAO);
 	glDrawElements(GL_TRIANGLES, m_plane_mesh.m_index_count, GL_UNSIGNED_INT, 0);
 
 
 	/////////////////////
+
+
+	TerrainWindow.Draw();
+
+
+	////////////////////
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
@@ -163,16 +208,6 @@ void PerlinNoise::Input()
 	{
 		gPressed = false;
 	}
-
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	{
-		m_scale++;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	{
-		m_scale--;
-	}
 }
 
 void PerlinNoise::BuildGrid(vec2 real_dims, glm::ivec2 dims)
@@ -197,7 +232,9 @@ void PerlinNoise::BuildGrid(vec2 real_dims, glm::ivec2 dims)
 		for (int x = 0; x < dims.x + 1; ++x)
 		{
 			//create points
-			vertex_data[y * (dims.x + 1) + x].position = vec4(curr_x, 0, curr_y, 1);
+			vertex_data[y * (dims.x + 1) + x].position =
+				vec4(curr_x, 0, curr_y, 1);
+
 			vertex_data[y * (dims.x + 1) + x].tex_coord =
 				vec2((float)x / (float)dims.x, (float)y / (float)dims.y);
 
@@ -275,6 +312,8 @@ void PerlinNoise::BuildPerlinTexture(glm::ivec2 dims, int octaves, float persist
 	//allocate memory for perlin data
 	m_perlin_data = new float[dims.x * dims.y];
 
+	MIN = FLT_MAX;
+	MAX = -FLT_MAX;
 
 	//loop through all the pixels
 	for (int y = 0; y < dims.y; y++)
@@ -301,6 +340,15 @@ void PerlinNoise::BuildPerlinTexture(glm::ivec2 dims, int octaves, float persist
 				perlin_sample *= amplitude;
 				m_perlin_data[y * dims.x + x] += perlin_sample;
 
+				if (m_perlin_data[y * dims.x + x] < MIN)
+				{
+					MIN = m_perlin_data[y * dims.x + x];
+				}
+				if (m_perlin_data[y * dims.x + x] > MAX)
+				{
+					MAX = m_perlin_data[y * dims.x + x];
+				}
+				
 				amplitude *= persistence;
 				frequency *= 2.0f;
 			}

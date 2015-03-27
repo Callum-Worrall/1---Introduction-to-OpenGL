@@ -34,13 +34,15 @@ void OnWindowResize(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-bool GUI::StartUp(const char* a_bar_name, int a_width, int a_height, GLFWwindow* a_window) // START UP //
+bool GUI::StartUp(const char* a_bar_name, int a_width, int a_height) // START UP //
 {
-	glfwSetMouseButtonCallback(a_window, OnMouseButton);
-	glfwSetCursorPosCallback(a_window, OnMousePosition);
-	glfwSetScrollCallback(a_window, OnMouseScroll);
-	glfwSetCharCallback(a_window, OnChar);
-	glfwSetWindowSizeCallback(a_window, OnWindowResize);
+	window = glfwGetCurrentContext();
+
+	glfwSetMouseButtonCallback(window, OnMouseButton);
+	glfwSetCursorPosCallback(window, OnMousePosition);
+	glfwSetScrollCallback(window, OnMouseScroll);
+	glfwSetCharCallback(window, OnChar);
+	glfwSetWindowSizeCallback(window, OnWindowResize);
 
 	TwInit(TW_OPENGL_CORE, nullptr);
 	TwWindowSize(a_width, a_height);
@@ -72,4 +74,38 @@ bool GUI::Draw()	// DRAW //
 TwBar* GUI::GetBar()
 {
 	return m_bar;
+}
+
+void GUI::AddBarF(const char* bar_name, float* variable, const char* definition)
+{
+	TwAddVarRW(m_bar, bar_name, TW_TYPE_FLOAT, variable, definition);
+}
+
+void GUI::AddBarI(const char* bar_name, int* variable, const char* definition)
+{
+	TwAddVarRW(m_bar, bar_name, TW_TYPE_INT32, variable, definition);
+}
+
+void GUI::AddBarV2(const char* bar_name, vec2* variable, const char* definition)
+{
+	//char* barX;
+	//strcpy(barX, bar_name);
+	//strcat(barX, ".x");
+	//
+	//char* barY;
+	//strcpy(barY, bar_name);
+	//strcat(barY, ".y");
+
+	//TwAddVarRW(m_bar, barX, TW_TYPE_FLOAT, &(variable->x), definition);
+	//TwAddVarRW(m_bar, barY, TW_TYPE_FLOAT, &(variable->y), definition);
+}
+
+void GUI::AddBarV3(const char* bar_name, vec3* variable, const char* definition)
+{
+	TwAddVarRW(m_bar, bar_name, TW_TYPE_DIR3F, variable, definition);
+}
+
+void GUI::AddBarV4(const char* bar_name, vec4* variable, const char* definition)
+{
+	TwAddVarRW(m_bar, bar_name, TW_TYPE_COLOR4F, variable, definition);
 }

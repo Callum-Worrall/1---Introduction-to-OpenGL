@@ -55,7 +55,7 @@ bool AdvancedTexturing::StartUp()
 	m_background_color = vec4(0.5, 0.5, 0.5, 1);
 
 	m_lightingControl = new GUI();
-	m_lightingControl->StartUp("Lighting Bar", 1280, 720, m_window);
+	m_lightingControl->StartUp("Lighting Bar", 1280, 720);
 	TwAddSeparator(m_lightingControl->GetBar(), "LIGHT BAR", "");
 	TwAddVarRW(m_lightingControl->GetBar(), "Background Colour", TW_TYPE_COLOR4F, &m_background_color, "");
 	TwAddVarRW(m_lightingControl->GetBar(), "Light Direction", TW_TYPE_DIR3F, &m_light_dir, "group = Light");

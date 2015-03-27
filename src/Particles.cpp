@@ -41,7 +41,7 @@ bool Particles::StartUp()
 	);
 
 	m_emitterControl = new GUI();
-	m_emitterControl->StartUp("Emitter Controls", 1280, 720, m_window);
+	m_emitterControl->StartUp("Emitter Controls", 1280, 720);
 	//TwAddSeparator(m_emitterControl->GetBar(), "LIGHT BAR", "");
 	TwAddVarRW(m_emitterControl->GetBar(), "Background Colour", TW_TYPE_COLOR4F,
 		&m_background_color, "");

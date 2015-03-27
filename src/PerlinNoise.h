@@ -3,6 +3,7 @@
 
 #include "Application.h"
 #include "FlyCamera.h"
+#include "GUI.h"
 
 
 #pragma once
@@ -34,7 +35,25 @@ private:
 	GLuint m_program_id;
 	GLuint m_perlin_texture;
 	float* m_perlin_data;
+
+
+	float m_dimX;
+	float m_dimY;
+
+	glm::ivec2 m_dims;
+	int m_octaves;
+	float m_persistence;
 	float m_scale;
+
+	glm::ivec2 lastDims;
+	int lastOctaves;
+	float lastPersistence;
+
+	GUI TerrainWindow;
+
+
+	float MIN;
+	float MAX;
 };
 
 #endif

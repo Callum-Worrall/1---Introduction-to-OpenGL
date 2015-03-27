@@ -10,6 +10,7 @@ out vec2 frag_texcoord;
 uniform sampler2D perlin_texture;
 
 uniform float scale;
+uniform float persistence;
 
 void main()
 {

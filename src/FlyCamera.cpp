@@ -59,12 +59,7 @@ bool FlyCamera::Update(float deltaTime)
 	}
 
 
-
 	GLFWwindow* curr_window = glfwGetCurrentContext();
-
-	
-	
-	
 
 
 	if (glfwGetMouseButton(curr_window, 1))
