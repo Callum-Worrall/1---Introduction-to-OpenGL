@@ -1,7 +1,10 @@
 #include "Utility.h"
-#include "glm_include.h"
 #include <cstdio>
+
 #include "gl_core_4_4.h"
+#include <GLFW/glfw3.h>
+#include "glm_include.h"
+#include "Vertex.h"
 
 
 bool LoadShaderType(
@@ -159,3 +162,144 @@ bool LoadShaders(
 }
 
 
+OpenGLData GenerateQuad(float size)
+{
+	OpenGLData quad;
+
+	VertexNormal vertex_data[4];
+
+	vertex_data[0].position = vec4(-size, 0, -size, 1);
+	vertex_data[1].position = vec4(-size, 0, size, 1);
+	vertex_data[2].position = vec4(size, 0, size, 1);
+	vertex_data[3].position = vec4(size, 0, -size, 1);
+
+	vertex_data[0].normal = vec4(0, 1, 0, 0);
+	vertex_data[0].normal = vec4(0, 1, 0, 0);
+	vertex_data[0].normal = vec4(0, 1, 0, 0);
+	vertex_data[0].normal = vec4(0, 1, 0, 0);
+
+	vertex_data[0].tangent = vec4(1, 0, 0, 0);
+	vertex_data[0].tangent = vec4(1, 0, 0, 0);
+	vertex_data[0].tangent = vec4(1, 0, 0, 0);
+	vertex_data[0].tangent = vec4(1, 0, 0, 0);
+
+	vertex_data[0].tex_coord = vec2(0, 0);
+	vertex_data[1].tex_coord = vec2(0, 1);
+	vertex_data[2].tex_coord = vec2(1, 1);
+	vertex_data[3].tex_coord = vec2(1, 0);
+
+	unsigned int index_data[6] = { 0, 2, 1, 0, 3, 2 };
+	quad.m_index_count = 6;
+
+	glGenVertexArrays(1, &quad.m_VAO);
+	glGenBuffers(1, &quad.m_VBO);
+	glGenBuffers(1, &quad.m_IBO);
+
+	glBindVertexArray(quad.m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, quad.m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexNormal)* 4, vertex_data, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad.m_IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)* 6, index_data, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);	//position
+	glEnableVertexAttribArray(1);	//normal
+	glEnableVertexAttribArray(2);	//tangent
+	glEnableVertexAttribArray(3);	//tex coord
+
+	//Position
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
+		sizeof(VertexNormal), 0);
+
+	//Normal
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE,
+		sizeof(VertexNormal), (void*)(sizeof(vec4)* 1));
+
+	//Tangent
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE,
+		sizeof(VertexNormal), (void*)(sizeof(vec4)* 2));
+
+	//Tex Coord
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE,
+		sizeof(VertexNormal), (void*)(sizeof(vec4)* 3));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	return quad;
+}
+
+
+
+//LoadTextures(const char* a_diffuse_file,
+//	const char* a_normal_file,
+//	const char* a_specular_file)
+//{
+//
+//	int width = 0;
+//	int height = 0;
+//	int channels;
+//
+//	//DIFFUSE
+//	unsigned char* data = stbi_load(a_diffuse_file,
+//		&width, &height,
+//		&channels, STBI_default);
+//
+//	glGenTextures(1, &m_diffuse_texture);
+//	glBindTexture(GL_TEXTURE_2D, m_diffuse_texture);
+//
+//	//,type of channel, actual data providing it (image)
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
+//		GL_RGB, GL_UNSIGNED_BYTE, data);
+//
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//
+//	stbi_image_free(data);
+//
+//	////////
+//
+//
+//	//NORMAL
+//	data = stbi_load(a_normal_file,
+//		&width, &height,
+//		&channels, STBI_default);
+//
+//	glGenTextures(1, &m_normal_texture);
+//	glBindTexture(GL_TEXTURE_2D, m_normal_texture);
+//
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
+//		GL_RGB, GL_UNSIGNED_BYTE, data);
+//
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//
+//	stbi_image_free(data);
+//
+//	////////
+//
+//
+//	//SPECULAR
+//	data = stbi_load(a_specular_file,
+//		&width, &height,
+//		&channels, STBI_default);
+//
+//	glGenTextures(1, &m_specular_texture);
+//	glBindTexture(GL_TEXTURE_2D, m_specular_texture);
+//
+//	//,type of channel, actual data providing it (image)
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
+//		GL_RGB, GL_UNSIGNED_BYTE, data);
+//
+//	//Texture Filtering Options			(GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR or GL_NEAREST_MIPMAP_NEAREST)
+//	//What to use when pixels are too big 
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	//What to use when pixels are too small
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//
+//	stbi_image_free(data);
+//
+//	////////
+//}

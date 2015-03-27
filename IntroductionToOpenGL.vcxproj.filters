@@ -76,6 +76,9 @@
     <Filter Include="Applications\Deferred Rendering">
       <UniqueIdentifier>{a49644f4-e6ec-4689-8f57-4a4583179d94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Procedural Generation">
+      <UniqueIdentifier>{dc6b9af5-ba97-4389-9d3f-5a9ab783efc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -158,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="src\DeferredRendering.cpp">
       <Filter>Applications\Deferred Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PerlinNoise.cpp">
+      <Filter>Applications\Procedural Generation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +260,9 @@
     <ClInclude Include="src\DeferredRendering.h">
       <Filter>Applications\Deferred Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\PerlinNoise.h">
+      <Filter>Applications\Procedural Generation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\basic_vertex.glsl">
@@ -305,6 +314,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\textured_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\perlin_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="data\shaders\perlin_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

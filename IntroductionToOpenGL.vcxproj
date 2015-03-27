@@ -104,6 +104,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\OBJLoader.cpp" />
     <ClCompile Include="src\Particles.cpp" />
+    <ClCompile Include="src\PerlinNoise.cpp" />
     <ClCompile Include="src\PostProcess.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\RenderingGeometry.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\OBJLoader.h" />
     <ClInclude Include="src\Particles.h" />
+    <ClInclude Include="src\PerlinNoise.h" />
     <ClInclude Include="src\PostProcess.h" />
     <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\RenderingGeometry.h" />
@@ -159,6 +161,8 @@
     <None Include="data\shaders\normal_mapped_vertex.glsl" />
     <None Include="data\shaders\particle_fragment.glsl" />
     <None Include="data\shaders\particle_vertex.glsl" />
+    <None Include="data\shaders\perlin_fragment.glsl" />
+    <None Include="data\shaders\perlin_vertex.glsl" />
     <None Include="data\shaders\post_fragment.glsl" />
     <None Include="data\shaders\post_vertex.glsl" />
     <None Include="data\shaders\skinned_fragment.glsl" />

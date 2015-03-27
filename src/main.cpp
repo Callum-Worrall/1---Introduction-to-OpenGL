@@ -9,14 +9,16 @@
 #include "Particles.h"	//working, also contains GUI
 #include "GPUParticles.h"	//working, also contains GUI
 #include "SceneManagement.h"	//working
-
 #include "RenderTargets.h"	//working
+
 #include "PostProcess.h"	//not working (greyed out)
 #include "DeferredRendering.h" //to do
 
+#include "PerlinNoise.h"
+
 int main()
 {
-	PostProcess app;
+	PerlinNoise app;
 	if (app.StartUp() == false)
 	{
 		return -1;
