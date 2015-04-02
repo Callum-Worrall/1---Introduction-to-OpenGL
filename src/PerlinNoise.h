@@ -22,6 +22,7 @@ public:
 	//Perlin Noise and Plane Building Functions
 	void BuildGrid(vec2 real_dims, glm::ivec2 dims);
 	void BuildPerlinTexture(glm::ivec2 dims, int octaves, float persistence);
+	void ReloadShader();
 
 private:
 

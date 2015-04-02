@@ -15,6 +15,8 @@
 #include "DeferredRendering.h" //to do
 
 #include "PerlinNoise.h"
+#include "AdvancedNavigation.h"
+
 
 int main()
 {

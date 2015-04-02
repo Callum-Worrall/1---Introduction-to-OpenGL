@@ -79,6 +79,9 @@
     <Filter Include="Applications\Procedural Generation">
       <UniqueIdentifier>{dc6b9af5-ba97-4389-9d3f-5a9ab783efc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Applications\Advanced Navigation">
+      <UniqueIdentifier>{358af7ea-1b7f-475b-9cd1-720bda16ea1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="src\PerlinNoise.cpp">
       <Filter>Applications\Procedural Generation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AdvancedNavigation.cpp">
+      <Filter>Applications\Advanced Navigation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +269,9 @@
     <ClInclude Include="src\PerlinNoise.h">
       <Filter>Applications\Procedural Generation</Filter>
     </ClInclude>
+    <ClInclude Include="src\AdvancedNavigation.h">
+      <Filter>Applications\Advanced Navigation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\basic_vertex.glsl">
@@ -320,6 +329,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="data\shaders\perlin_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="navmesh_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="navmesh_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

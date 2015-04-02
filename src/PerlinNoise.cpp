@@ -208,6 +208,11 @@ void PerlinNoise::Input()
 	{
 		gPressed = false;
 	}
+
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+	{
+		ReloadShader();
+	}
 }
 
 void PerlinNoise::BuildGrid(vec2 real_dims, glm::ivec2 dims)
@@ -371,4 +376,11 @@ void PerlinNoise::BuildPerlinTexture(glm::ivec2 dims, int octaves, float persist
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void PerlinNoise::ReloadShader()
+{
+	glDeleteProgram(m_program_id);
+
+	LoadShaders("./shaders/perlin_vertex.glsl", nullptr, "./shaders/perlin_fragment.glsl", &m_program_id);
 }

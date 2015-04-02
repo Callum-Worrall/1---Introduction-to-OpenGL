@@ -22,6 +22,7 @@ void main()
 	vec4 white = vec4(1, 1, 1, 1);
 	vec4 black = vec4(0, 0, 0, 1);
 
+	vec4 brown = vec4(1.0f * (90.0f/255.0f), 1.0f * (51.0f/255.0f), 0, 1);
 
 
 	float perlin_sample = texture(perlin_texture, frag_texcoord).r;
@@ -32,34 +33,44 @@ void main()
 
 	//perlin_sample * min;
 
-	if(perlin_sample > 0.5)
+	if(perlin_sample > 0.49)
 	{
-		if(perlin_sample > 0.75)
+		if(perlin_sample > 0.6)
 		{
-			if(perlin_sample > 0.875)
+			if(perlin_sample > 0.75)
 			{
 				if(perlin_sample > 1)
 				{
-					frag_color = white;
+					frag_color = mix(vec4(perlin_sample), white, 0.25);
 				}
 				else
-					frag_color = mix(black, white, 0.875);
+					frag_color = mix(vec4(perlin_sample), mix(black, white, 0.875), 0.25);
 			}
 			else
-				frag_color = mix(black, white, 0.75);
+				frag_color = mix(
+					vec4(perlin_sample),
+					mix(black, white, 0.5),
+					0.25);
 		}
 		else
-			frag_color = mix(black, white, 0.5);
+			frag_color = mix(
+				vec4(perlin_sample),
+				mix(green, black, 0.6),
+				0.25);
 	}
 	else
 	{
-		if(perlin_sample > 0.25 * perlin_sample)
+		if(perlin_sample > 0.2 * perlin_sample)
 		{
-			frag_color = mix(black, white, 0.25);
+			frag_color = mix(
+				vec4(perlin_sample),
+				mix(brown, black, 0.3),
+				0.25);
 		}
 		else
-			frag_color = black;
+			frag_color = mix(vec4(perlin_sample), black, 0.25);
 	}
-	frag_color = vec4(perlin_sample);
+
+	//frag_color = vec4(perlin_sample);
 	frag_color.a = 1;
 }
