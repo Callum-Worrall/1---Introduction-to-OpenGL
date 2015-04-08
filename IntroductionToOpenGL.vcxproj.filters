@@ -43,9 +43,6 @@
     <Filter Include="Applications\Quaternions">
       <UniqueIdentifier>{16a2d6e4-ee60-493b-a75e-bf11719b877b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Applications\GUI">
-      <UniqueIdentifier>{373878f1-4c72-4594-8d36-a72adf59829d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Applications\Particles">
       <UniqueIdentifier>{96195483-f224-4c4d-be9a-076c0e98c19c}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,9 @@
     </Filter>
     <Filter Include="Applications\Advanced Navigation">
       <UniqueIdentifier>{358af7ea-1b7f-475b-9cd1-720bda16ea1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GUI">
+      <UniqueIdentifier>{373878f1-4c72-4594-8d36-a72adf59829d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>Applications\Animation</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI.cpp">
-      <Filter>Applications\GUI</Filter>
+      <Filter>Utility\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\Particles.cpp">
       <Filter>Applications\Particles</Filter>
@@ -222,7 +222,7 @@
       <Filter>Applications\Animation</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI.h">
-      <Filter>Applications\GUI</Filter>
+      <Filter>Utility\GUI</Filter>
     </ClInclude>
     <ClInclude Include="src\Particles.h">
       <Filter>Applications\Particles</Filter>
